@@ -28,6 +28,7 @@ public class DisplayArithmeticView extends JPanel {
 	Lab1 lab1;
 	
 	private JTextField textField, textField_1;
+	private JButton btnAddTerm;
 	private int xCordinate, yCordinate = 0;
 	private JPanel panel;
 	
@@ -51,14 +52,14 @@ public class DisplayArithmeticView extends JPanel {
 		panel.setBounds(180, 28, 554, 85);
 		add(panel);
 		
-		JButton btnNewButton = new JButton("Add Term");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnAddTerm = new JButton("Add Term");
+		btnAddTerm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addANewTerm();
 			}
 		});
-		btnNewButton.setBounds(752, 44, 118, 20);
-		add(btnNewButton);
+		btnAddTerm.setBounds(752, 44, 118, 20);
+		add(btnAddTerm);
 		
 		JButton button = new JButton("+");
 		button.setBounds(889, 44, 118, 20);
@@ -108,11 +109,17 @@ public class DisplayArithmeticView extends JPanel {
 		panel.add(term1);
 		term1.setLayout(null);
 		
+		JLabel label = new JLabel("=");
+		label.setBounds(170, 43, 46, 14);
+		add(label);
+		
 	}
 	
 	void addANewTerm() {
 		TermWithPlus term = new TermWithPlus();
-		if (xCordinate > 330) {
+		if (xCordinate == 440 && yCordinate == 50) {
+			btnAddTerm.setEnabled(false);
+		} else if (xCordinate == 440) {
 			xCordinate = 0;
 			yCordinate += 50;
 		} else {
