@@ -17,6 +17,11 @@ public class Lab1 extends JFrame {
 	ViewController controllerView;
 	EvaluateArithmeticView evaluateView;
 	private JPanel contentPane;
+	
+	final public Color secondaryColor = new Color(36, 96, 104),
+			minorColor  = new Color(105, 150, 156),
+			primaryColor = new Color(66, 122, 130);
+	
 
 	/**
 	 * Launch the application.
@@ -42,7 +47,7 @@ public class Lab1 extends JFrame {
 
 	private void setUpDisplayPolynomialView() {
 		displayView = new DisplayArithmeticView(this);
-		displayView.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
+		displayView.setBorder(new LineBorder(primaryColor, 4, true));
 		displayView.setBounds(-14, -15, 1078, 406);
 		contentPane.add(displayView);
 	}
@@ -51,8 +56,8 @@ public class Lab1 extends JFrame {
 		try {
 			remove(evaluateView);
 		} catch (NullPointerException exp) {}
-		performView = new PerformArithmeticView();
-		performView.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
+		performView = new PerformArithmeticView(this);
+		performView.setBorder(new LineBorder(primaryColor, 4, true));
 		performView.setBounds(279, 386, 785, 315);
 		contentPane.add(performView);
 		validate();
@@ -61,8 +66,8 @@ public class Lab1 extends JFrame {
 	
 	public void setUpEvaluatePolynomialView() {
 		remove(performView);
-		evaluateView = new EvaluateArithmeticView();
-		evaluateView.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
+		evaluateView = new EvaluateArithmeticView(this);
+		evaluateView.setBorder(new LineBorder(primaryColor, 4, true));
 		evaluateView.setBounds(279, 386, 785, 315);
 		contentPane.add(evaluateView);
 		validate();

@@ -2,7 +2,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -13,8 +12,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 
+import Theme.QTextField;
 import Theme.Term;
 import Theme.TermWithPlus;
+import Theme.QButton;
 
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
@@ -27,8 +28,8 @@ public class DisplayArithmeticView extends JPanel {
 	
 	Lab1 lab1;
 	
-	private JTextField textField, textField_1;
-	private JButton btnAddTerm;
+	private QTextField textField, textField_1;
+	private QButton btnAddTerm;
 	private int xCordinate, yCordinate = 0;
 	private JPanel panel;
 	
@@ -43,7 +44,7 @@ public class DisplayArithmeticView extends JPanel {
 		
 		setLayout(null);
 		
-		textField = new JTextField();
+		textField = new QTextField(lab1.primaryColor, lab1.secondaryColor);
 		textField.setBounds(42, 40, 118, 20);
 		add(textField);
 		textField.setColumns(10);
@@ -52,7 +53,7 @@ public class DisplayArithmeticView extends JPanel {
 		panel.setBounds(180, 28, 554, 85);
 		add(panel);
 		
-		btnAddTerm = new JButton("Add Term");
+		btnAddTerm = new QButton("Add Term", lab1.primaryColor, lab1.secondaryColor);
 		btnAddTerm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addANewTerm();
@@ -61,7 +62,7 @@ public class DisplayArithmeticView extends JPanel {
 		btnAddTerm.setBounds(752, 44, 118, 20);
 		add(btnAddTerm);
 		
-		JButton button = new JButton("+");
+		QButton button = new QButton("+", lab1.primaryColor, lab1.secondaryColor);
 		button.setBounds(889, 44, 118, 20);
 		add(button);
 		
@@ -71,22 +72,24 @@ public class DisplayArithmeticView extends JPanel {
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblSomeWordsTo = new JLabel("Some words to describe the process");
+		lblSomeWordsTo.setForeground(lab1.primaryColor);
 		panel_1.add(lblSomeWordsTo);
 		
 		JLabel lblSearch = new JLabel("Search");
 		lblSearch.setBounds(558, 352, 46, 14);
+		lblSearch.setForeground(lab1.primaryColor);
 		add(lblSearch);
 		
-		textField_1 = new JTextField();
+		textField_1 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
 		textField_1.setBounds(614, 349, 118, 20);
 		add(textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnLoad = new JButton("Load Polynomial");
+		QButton btnLoad = new QButton("Load Polynomial", lab1.primaryColor, lab1.secondaryColor);
 		btnLoad.setBounds(752, 348, 118, 20);
 		add(btnLoad);
 		
-		JButton btnSaveToDb = new JButton("Save to DB");
+		QButton btnSaveToDb = new QButton("Save to DB", lab1.primaryColor, lab1.secondaryColor);
 		btnSaveToDb.setBounds(889, 348, 118, 20);
 		add(btnSaveToDb);
 		
@@ -104,22 +107,21 @@ public class DisplayArithmeticView extends JPanel {
 		sBar2.setModel(sBar1.getModel());
 		panel.setLayout(null);
 		
-		Term term1 = new Term();
+		Term term1 = new Term(lab1.primaryColor, lab1.secondaryColor);
 		term1.setBounds(0, 0, 111, 32);
 		panel.add(term1);
 		term1.setLayout(null);
 		
 		JLabel label = new JLabel("=");
 		label.setBounds(170, 43, 46, 14);
+		label.setForeground(lab1.primaryColor);
 		add(label);
 		
 	}
 	
 	void addANewTerm() {
-		TermWithPlus term = new TermWithPlus();
-		if (xCordinate == 440 && yCordinate == 50) {
-			btnAddTerm.setEnabled(false);
-		} else if (xCordinate == 440) {
+		TermWithPlus term = new TermWithPlus(lab1.primaryColor, lab1.secondaryColor);
+		if (xCordinate == 440) {
 			xCordinate = 0;
 			yCordinate += 50;
 		} else {
@@ -128,6 +130,9 @@ public class DisplayArithmeticView extends JPanel {
 		term.setBounds(xCordinate, yCordinate, 111, 32);
 		panel.add(term);
 		term.setLayout(null);
+		if (xCordinate == 440 && yCordinate == 50) {
+			btnAddTerm.setEnabled(false);
+		}
 		lab1.validate();
 		lab1.repaint();
 	}

@@ -14,18 +14,18 @@ Color hoverColor, mainColor;
 		this.hoverColor = hoverColor;
 		this.mainColor = mainColor;
 		addMouseListener(this);
-		setBorder(BorderFactory.createLineBorder(mainColor, 2));
+		setBorder(BorderFactory.createLineBorder(mainColor, 1));
 	}
 	
 	public void mouseClicked(MouseEvent e) {
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		setBorder(BorderFactory.createLineBorder(hoverColor, 2));
+		setBorder(BorderFactory.createLineBorder(hoverColor, 1));
 	}
 
 	public void mouseExited(MouseEvent e) {
-		setBorder(BorderFactory.createLineBorder(mainColor, 2));
+		setBorder(BorderFactory.createLineBorder(mainColor, 1));
 	}
 
 	public void mousePressed(MouseEvent e) {

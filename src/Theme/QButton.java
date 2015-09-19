@@ -18,6 +18,7 @@ public class QButton extends JButton implements MouseListener{
 		this.mainColor = mainColor;
 		addMouseListener(this);
 		setBackground(mainColor);
+		setForeground(Color.WHITE);
 		setText(name);
 	}
 	
