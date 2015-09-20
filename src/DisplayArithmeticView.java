@@ -59,11 +59,11 @@ public class DisplayArithmeticView extends JPanel {
 				addANewTerm();
 			}
 		});
-		btnAddTerm.setBounds(752, 44, 118, 20);
+		btnAddTerm.setBounds(752, 44, 127, 20);
 		add(btnAddTerm);
 		
 		QButton button = new QButton("+", lab1.primaryColor, lab1.secondaryColor);
-		button.setBounds(889, 44, 118, 20);
+		button.setBounds(889, 44, 121, 20);
 		add(button);
 		
 		JPanel panel_1 = new JPanel();
@@ -86,11 +86,11 @@ public class DisplayArithmeticView extends JPanel {
 		textField_1.setColumns(10);
 		
 		QButton btnLoad = new QButton("Load Polynomial", lab1.primaryColor, lab1.secondaryColor);
-		btnLoad.setBounds(752, 348, 118, 20);
+		btnLoad.setBounds(752, 348, 127, 20);
 		add(btnLoad);
 		
 		QButton btnSaveToDb = new QButton("Save to DB", lab1.primaryColor, lab1.secondaryColor);
-		btnSaveToDb.setBounds(889, 348, 118, 20);
+		btnSaveToDb.setBounds(889, 348, 121, 20);
 		add(btnSaveToDb);
 		
 		JScrollPane displayScrollPane = new JScrollPane(new ScrollPanel());

@@ -1,6 +1,7 @@
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
+import Theme.QButton;
 import Theme.QTextField;
 
 import javax.swing.JComboBox;
@@ -26,7 +27,7 @@ public class EvaluateArithmeticView extends JPanel {
 		setLayout(null);
 		
 		JLabel lblPolynomialName = new JLabel("Polynomial Name");
-		lblPolynomialName.setBounds(84, 57, 85, 14);
+		lblPolynomialName.setBounds(66, 57, 103, 14);
 		lblPolynomialName.setForeground(lab1.primaryColor);
 		add(lblPolynomialName);
 		
@@ -36,17 +37,17 @@ public class EvaluateArithmeticView extends JPanel {
 		add(label);
 		
 		JLabel lblX = new JLabel("x");
-		lblX.setBounds(84, 78, 46, 14);
+		lblX.setBounds(66, 78, 46, 14);
 		lblX.setForeground(lab1.primaryColor);
 		add(lblX);
 		
 		JLabel lblY = new JLabel("y");
-		lblY.setBounds(84, 103, 46, 14);
+		lblY.setBounds(66, 103, 46, 14);
 		lblY.setForeground(lab1.primaryColor);
 		add(lblY);
 		
 		JLabel lblZ = new JLabel("z");
-		lblZ.setBounds(84, 128, 46, 14);
+		lblZ.setBounds(66, 128, 46, 14);
 		lblZ.setForeground(lab1.primaryColor);
 		add(lblZ);
 		
@@ -95,7 +96,7 @@ public class EvaluateArithmeticView extends JPanel {
 		
 		JLabel lblResult = new JLabel("Result");
 		lblResult.setForeground(lab1.primaryColor);
-		lblResult.setBounds(84, 253, 46, 14);
+		lblResult.setBounds(66, 253, 60, 14);
 		add(lblResult);
 		
 		JLabel label_4 = new JLabel("=");
@@ -108,7 +109,7 @@ public class EvaluateArithmeticView extends JPanel {
 		textField_3.setBounds(216, 250, 410, 20);
 		add(textField_3);
 		
-		JButton btnNewButton = new JButton("Evaluate");
+		QButton btnNewButton = new QButton("Evaluate", lab1.primaryColor, lab1.secondaryColor);
 		btnNewButton.setBounds(216, 153, 122, 23);
 		add(btnNewButton);
 		

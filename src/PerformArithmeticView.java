@@ -38,32 +38,32 @@ public class PerformArithmeticView extends JPanel {
 		add(secondOperand);
 		
 		JLabel lblFirstoperand = new JLabel("First Operand");
-		lblFirstoperand.setBounds(79, 89, 71, 14);
+		lblFirstoperand.setBounds(79, 89, 105, 14);
 		lblFirstoperand.setForeground(lab1.primaryColor);
 		add(lblFirstoperand);
 		
 		JLabel lblSecondOperand = new JLabel("Second Operand");
-		lblSecondOperand.setBounds(79, 124, 71, 14);
+		lblSecondOperand.setBounds(79, 124, 105, 14);
 		lblSecondOperand.setForeground(lab1.primaryColor);
 		add(lblSecondOperand);
 		
 		JLabel label = new JLabel("=");
-		label.setBounds(160, 89, 46, 14);
+		label.setBounds(195, 89, 46, 14);
 		label.setForeground(lab1.primaryColor);
 		add(label);
 		
 		JLabel label_1 = new JLabel("=");
-		label_1.setBounds(160, 124, 46, 14);
+		label_1.setBounds(195, 124, 46, 14);
 		label_1.setForeground(lab1.primaryColor);
 		add(label_1);
 		
 		textField = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField.setBounds(191, 86, 406, 20);
+		textField.setBounds(228, 86, 369, 20);
 		add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_1.setBounds(191, 121, 406, 20);
+		textField_1.setBounds(228, 121, 369, 20);
 		add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -78,17 +78,17 @@ public class PerformArithmeticView extends JPanel {
 		
 		txtResult = new QTextField(lab1.primaryColor, lab1.secondaryColor);
 		txtResult.setText("Result");
-		txtResult.setBounds(79, 226, 71, 20);
+		txtResult.setBounds(79, 226, 105, 20);
 		add(txtResult);
 		txtResult.setColumns(10);
 		
 		JLabel label_2 = new JLabel("=");
-		label_2.setBounds(160, 229, 46, 14);
+		label_2.setBounds(195, 228, 46, 14);
 		label_2.setForeground(lab1.primaryColor);
 		add(label_2);
 		
 		textField_2 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_2.setBounds(191, 226, 406, 20);
+		textField_2.setBounds(228, 226, 369, 20);
 		add(textField_2);
 		textField_2.setColumns(10);
 		
