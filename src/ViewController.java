@@ -11,6 +11,8 @@ public class ViewController extends JPanel {
 
 	Lab1 lab1;
 	
+	private QButton btnPerformArithmetic, btnAvaluateArithmetic;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -18,19 +20,24 @@ public class ViewController extends JPanel {
 		this.lab1 = lab1;
 		setLayout(null);
 		
-		QButton btnPerformArithmetic = new QButton("Perform Arithmetic", lab1.primaryColor, lab1.secondaryColor);
+		btnPerformArithmetic = new QButton("Perform Arithmetic", lab1.primaryColor, lab1.secondaryColor);
 		btnPerformArithmetic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lab1.setUpPerformPolynomialView();
+				btnPerformArithmetic.setEnabled(false);
+				btnAvaluateArithmetic.setEnabled(true);
 			}
 		});
 		btnPerformArithmetic.setBounds(71, 71, 154, 50);
+		btnPerformArithmetic.setEnabled(false);
 		add(btnPerformArithmetic);
 		
-		QButton btnAvaluateArithmetic = new QButton("Avaluate Arithmetic", lab1.primaryColor, lab1.secondaryColor);
+		btnAvaluateArithmetic = new QButton("Avaluate Arithmetic", lab1.primaryColor, lab1.secondaryColor);
 		btnAvaluateArithmetic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lab1.setUpEvaluatePolynomialView();
+				btnPerformArithmetic.setEnabled(true);
+				btnAvaluateArithmetic.setEnabled(false);
 			}
 		});
 		btnAvaluateArithmetic.setBounds(71, 150, 154, 50);

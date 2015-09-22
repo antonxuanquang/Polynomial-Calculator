@@ -1,5 +1,6 @@
 package Theme;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -29,6 +30,7 @@ public class QButton extends JButton implements MouseListener{
 		Object event = e.getSource();
 		if (event.equals(this)) {
 			setBackground(hoverColor);
+			setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
 	}
 
@@ -36,6 +38,7 @@ public class QButton extends JButton implements MouseListener{
 		Object event = e.getSource();
 		if (event.equals(this)) {
 			setBackground(mainColor);
+			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 
