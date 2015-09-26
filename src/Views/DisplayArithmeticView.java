@@ -46,9 +46,10 @@ public class DisplayArithmeticView extends JPanel{
 		
 		lab1 = fromLab1;
 		model = fromModel;
-		control = new DisplayArithmeticControl(this);
 		
 		setUpPanel();
+		control = new DisplayArithmeticControl(this);
+		
 		control.setUpActionListeners();
 	}
 
@@ -112,11 +113,6 @@ public class DisplayArithmeticView extends JPanel{
 		JScrollBar sBar1 = displayScrollPane.getVerticalScrollBar();
 		JScrollBar sBar2 = deleteScrollPane.getVerticalScrollBar();
 		sBar2.setModel(sBar1.getModel());
-		
-		Term term1 = new Term(lab1.primaryColor, lab1.secondaryColor, false);
-		term1.setBounds(0, 0, 111, 32);
-		panelOfTerms.add(term1);
-		term1.setLayout(null);
 		
 		JLabel label = new JLabel("=");
 		label.setBounds(170, 43, 46, 14);

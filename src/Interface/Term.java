@@ -24,13 +24,13 @@ public class Term extends JPanel implements TermInterface {
 		buildUpPanel(primaryColor, secondaryColor);
 	}
 	
-	public Term(Color primaryColor, Color secondaryColor, boolean withPlus) {
+	public Term(Color primaryColor, Color secondaryColor, boolean withoutPlus) {
 		buildUpPanel(primaryColor, secondaryColor);
-		addPlusLabel(withPlus);
+		addPlusLabel(withoutPlus);
 	}
 	
-	private void addPlusLabel(boolean withPlus) {
-		plusLb.setVisible(withPlus);
+	private void addPlusLabel(boolean withoutPlus) {
+		plusLb.setVisible(withoutPlus);
 	}
 
 	private void buildUpPanel(Color primaryColor, Color secondaryColor) {
@@ -108,6 +108,13 @@ public class Term extends JPanel implements TermInterface {
 	public void setZPower(int iz) {
 		zTF.setText("" + iz);
 	}
+	
+	public void setCoeffAndXYZ (int coeff, int x, int y, int z) {
+		coeffTF.setText("" + coeff);
+		xTF.setText("" + x);
+		yTF.setText("" + y);
+		zTF.setText("" + z);
+	}
 
 	public Term getPtr() {
 		return ptr;
@@ -115,6 +122,14 @@ public class Term extends JPanel implements TermInterface {
 
 	public void setPtr(Term p) {
 		 ptr = p;
+	}
+	
+	@Override
+	public String toString() {
+		return "Coefficient = " + Integer.parseInt(coeffTF.getText()) + "\n"
+				+ "x-exponent = " + Integer.parseInt(xTF.getText()) + "\n"
+				+ "y-exponent = " + Integer.parseInt(yTF.getText()) + "\n"
+				+ "z-exponent = " + Integer.parseInt(zTF.getText()) + "\n";
 	}
 
 }

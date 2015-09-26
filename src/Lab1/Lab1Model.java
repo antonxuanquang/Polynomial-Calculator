@@ -10,5 +10,9 @@ public class Lab1Model {
 		polyLinkedList.setDownPtr(polyLinkedList);
 		polyLinkedList.setRightPtr(null);
 	}
+	
+//	public boolean isInPolyLinkedList(String name) {
+//		
+//	}
 
 }
