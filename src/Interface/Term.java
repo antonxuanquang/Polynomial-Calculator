@@ -1,6 +1,8 @@
-package Theme;
+package Interface;
 
 import javax.swing.JPanel;
+
+import Theme.QTextField;
 
 import java.awt.Color;
 

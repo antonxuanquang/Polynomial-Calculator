@@ -12,9 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 
+import Interface.Term;
+import Interface.TermWithPlus;
 import Theme.QTextField;
-import Theme.Term;
-import Theme.TermWithPlus;
 import Theme.QButton;
 
 import javax.swing.JSeparator;
