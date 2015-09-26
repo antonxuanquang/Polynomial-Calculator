@@ -10,18 +10,23 @@ import java.awt.FlowLayout;
 
 
 public class PerformArithmeticView extends JPanel {
+
+	private Lab1 lab1;
+	private Lab1Model model;
+
 	private QTextField textField;
 	private QTextField textField_1;
 	private QTextField txtResult;
 	private QTextField textField_2;
 	
-	Lab1 lab1;
+	
 
 	/**
 	 * Create the panel.
 	 */
-	public PerformArithmeticView(Lab1 fromLab1) {
+	public PerformArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
 		lab1 = fromLab1;
+		model = fromModel;
 		
 		setLayout(null);
 		

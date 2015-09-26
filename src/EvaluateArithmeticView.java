@@ -11,18 +11,23 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 
 public class EvaluateArithmeticView extends JPanel {
+	
+	private Lab1 lab1;
+	private Lab1Model model;
+	
 	private QTextField textField;
 	private QTextField textField_1;
 	private QTextField textField_2;
 	private QTextField textField_3;
 	
-	Lab1 lab1;
+	
 
 	/**
 	 * Create the panel.
 	 */
-	public EvaluateArithmeticView(Lab1 fromLab1) {
+	public EvaluateArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
 		lab1 = fromLab1;
+		model = fromModel;
 		
 		setLayout(null);
 		

@@ -16,6 +16,7 @@ public class Lab1 extends JFrame {
 	PerformArithmeticView performView;
 	ViewController controllerView;
 	EvaluateArithmeticView evaluateView;
+	Lab1Model model;
 	private JPanel contentPane;
 	
 	final public Color secondaryColor = new Color(36, 96, 104),
@@ -46,7 +47,7 @@ public class Lab1 extends JFrame {
 	}
 
 	private void setUpDisplayPolynomialView() {
-		displayView = new DisplayArithmeticView(this);
+		displayView = new DisplayArithmeticView(this, model);
 		displayView.setBorder(new LineBorder(primaryColor, 4, true));
 		displayView.setBounds(-14, -15, 1078, 406);
 		contentPane.add(displayView);
@@ -56,7 +57,7 @@ public class Lab1 extends JFrame {
 		try {
 			remove(evaluateView);
 		} catch (NullPointerException exp) {}
-		performView = new PerformArithmeticView(this);
+		performView = new PerformArithmeticView(this, model);
 		performView.setBorder(new LineBorder(primaryColor, 4, true));
 		performView.setBounds(279, 386, 785, 315);
 		contentPane.add(performView);
@@ -66,7 +67,7 @@ public class Lab1 extends JFrame {
 	
 	public void setUpEvaluatePolynomialView() {
 		remove(performView);
-		evaluateView = new EvaluateArithmeticView(this);
+		evaluateView = new EvaluateArithmeticView(this, model);
 		evaluateView.setBorder(new LineBorder(primaryColor, 4, true));
 		evaluateView.setBounds(279, 386, 785, 315);
 		contentPane.add(evaluateView);

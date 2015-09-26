@@ -25,21 +25,23 @@ import java.awt.event.ActionEvent;
 
 public class DisplayArithmeticView extends JPanel {
 	
-	Lab1 lab1;
+	private Lab1 lab1;
+	private Lab1Model model;
+	
+	private Term term;
 	
 	private QTextField textField, textField_1;
 	private QButton btnAddTerm;
 	private int xCordinate, yCordinate = 0;
 	private JPanel panel;
-	
-	private Term term;
 
 	/**
 	 * Create the panel.
 	 */
-	public DisplayArithmeticView(Lab1 fromLab1) {
+	public DisplayArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
 		
 		lab1 = fromLab1;
+		model = fromModel;
 		
 		setLayout(null);
 		
