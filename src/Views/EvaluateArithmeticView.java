@@ -23,10 +23,8 @@ public class EvaluateArithmeticView extends JPanel {
 	public Lab1Model model;
 	private EvaluateArithmeticControl control;
 	
-	private QTextField textField;
-	private QTextField textField_1;
-	private QTextField textField_2;
-	private QTextField textField_3;
+	private QTextField textField, textField_1, textField_2, textField_3;
+	
 	
 	
 

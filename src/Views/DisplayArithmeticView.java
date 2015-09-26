@@ -27,18 +27,17 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class DisplayArithmeticView extends JPanel {
+public class DisplayArithmeticView extends JPanel{
 	
-	private Lab1 lab1;
+	public Lab1 lab1;
 	public Lab1Model model;
 	private DisplayArithmeticControl control;
 	
 	private Term term;
 	
-	private QTextField textField, textField_1;
-	private QButton btnAddTerm;
-	private int xCordinate, yCordinate = 0;
-	private JPanel panel;
+	private QTextField tfPolyName, tfSearch;
+	public QButton btnAddTerm, btnAddPoly, btnLoad, btnSaveToDb;
+	public JPanel panelOfTerms;
 
 	/**
 	 * Create the panel.
@@ -49,29 +48,30 @@ public class DisplayArithmeticView extends JPanel {
 		model = fromModel;
 		control = new DisplayArithmeticControl(this);
 		
+		setUpPanel();
+		control.setUpActionListeners();
+	}
+
+	private void setUpPanel() {
 		setLayout(null);
 		
-		textField = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField.setBounds(42, 40, 118, 20);
-		add(textField);
-		textField.setColumns(10);
+		tfPolyName = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		tfPolyName.setBounds(42, 40, 118, 20);
+		add(tfPolyName);
+		tfPolyName.setColumns(10);
 		
-		panel = new JPanel();
-		panel.setBounds(180, 28, 554, 85);
-		add(panel);
+		panelOfTerms = new JPanel();
+		panelOfTerms.setBounds(180, 28, 554, 85);
+		panelOfTerms.setLayout(null);
+		add(panelOfTerms);
 		
 		btnAddTerm = new QButton("Add Term", lab1.primaryColor, lab1.secondaryColor);
-		btnAddTerm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addANewTerm();
-			}
-		});
 		btnAddTerm.setBounds(752, 44, 127, 20);
 		add(btnAddTerm);
 		
-		QButton button = new QButton("+", lab1.primaryColor, lab1.secondaryColor);
-		button.setBounds(889, 44, 121, 20);
-		add(button);
+		btnAddPoly = new QButton("+", lab1.primaryColor, lab1.secondaryColor);
+		btnAddPoly.setBounds(889, 44, 121, 20);
+		add(btnAddPoly);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(106, 113, 545, 27);
@@ -87,16 +87,16 @@ public class DisplayArithmeticView extends JPanel {
 		lblSearch.setForeground(lab1.primaryColor);
 		add(lblSearch);
 		
-		textField_1 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_1.setBounds(614, 349, 118, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
+		tfSearch = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		tfSearch.setBounds(614, 349, 118, 20);
+		add(tfSearch);
+		tfSearch.setColumns(10);
 		
-		QButton btnLoad = new QButton("Load Polynomial", lab1.primaryColor, lab1.secondaryColor);
+		btnLoad = new QButton("Load Polynomial", lab1.primaryColor, lab1.secondaryColor);
 		btnLoad.setBounds(752, 348, 127, 20);
 		add(btnLoad);
 		
-		QButton btnSaveToDb = new QButton("Save to DB", lab1.primaryColor, lab1.secondaryColor);
+		btnSaveToDb = new QButton("Save to DB", lab1.primaryColor, lab1.secondaryColor);
 		btnSaveToDb.setBounds(889, 348, 121, 20);
 		add(btnSaveToDb);
 		
@@ -112,11 +112,10 @@ public class DisplayArithmeticView extends JPanel {
 		JScrollBar sBar1 = displayScrollPane.getVerticalScrollBar();
 		JScrollBar sBar2 = deleteScrollPane.getVerticalScrollBar();
 		sBar2.setModel(sBar1.getModel());
-		panel.setLayout(null);
 		
 		Term term1 = new Term(lab1.primaryColor, lab1.secondaryColor, false);
 		term1.setBounds(0, 0, 111, 32);
-		panel.add(term1);
+		panelOfTerms.add(term1);
 		term1.setLayout(null);
 		
 		JLabel label = new JLabel("=");
@@ -124,24 +123,6 @@ public class DisplayArithmeticView extends JPanel {
 		label.setForeground(lab1.primaryColor);
 		add(label);
 		
-	}
-	
-	void addANewTerm() {
-		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
-		if (xCordinate == 440) {
-			xCordinate = 0;
-			yCordinate += 50;
-		} else {
-			xCordinate += 110;
-		}
-		term.setBounds(xCordinate, yCordinate, 111, 32);
-		panel.add(term);
-		term.setLayout(null);
-		if (xCordinate == 440 && yCordinate == 50) {
-			btnAddTerm.setEnabled(false);
-		}
-		lab1.validate();
-		lab1.repaint();
 	}
 }
 
