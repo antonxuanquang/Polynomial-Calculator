@@ -14,7 +14,7 @@ public interface PolyNameNodeInterface {
 
 	public void setDownPtr(PolyNameNode p);
 
-	public PolyNode getRightPtr();
+	public Term getRightPtr();
 
-	public void setRightPtr(PolyNode p);
+	public void setRightPtr(Term p);
 }

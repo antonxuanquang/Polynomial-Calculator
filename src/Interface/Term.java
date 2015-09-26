@@ -8,53 +8,113 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 
-public class Term extends JPanel {
-	private QTextField textField;
-	private QTextField textField_1;
-	private QTextField textField_2;
-	private QTextField textField_3;
+public class Term extends JPanel implements TermInterface {
+	private QTextField coeffTF;
+	private QTextField xTF;
+	private QTextField yTF;
+	private QTextField zTF;
+	private JLabel plusLb;
+	
+	private Term ptr;
 
 	/**
 	 * Create the panel.
 	 */
 	public Term(Color primaryColor, Color secondaryColor) {
-setLayout(null);
+		buildUpPanel(primaryColor, secondaryColor);
+	}
+	
+	public Term(Color primaryColor, Color secondaryColor, boolean withPlus) {
+		buildUpPanel(primaryColor, secondaryColor);
+		addPlusLabel(withPlus);
+	}
+	
+	private void addPlusLabel(boolean withPlus) {
+		plusLb.setVisible(withPlus);
+	}
+
+	private void buildUpPanel(Color primaryColor, Color secondaryColor) {
+		setLayout(null);
 		
-		textField = new QTextField(primaryColor, secondaryColor);
-		textField.setBounds(10, 11, 28, 20);
-		add(textField);
-		textField.setColumns(10);
+		coeffTF = new QTextField(primaryColor, secondaryColor);
+		coeffTF.setBounds(10, 11, 28, 20);
+		add(coeffTF);
+		coeffTF.setColumns(10);
 		
 		JLabel lblX = new JLabel("x");
 		lblX.setBounds(40, 13, 22, 17);
 		lblX.setForeground(primaryColor);
 		add(lblX);
 		
-		textField_1 = new QTextField(primaryColor, secondaryColor);
-		textField_1.setBounds(48, 0, 14, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
+		xTF = new QTextField(primaryColor, secondaryColor);
+		xTF.setBounds(48, 0, 14, 20);
+		add(xTF);
+		xTF.setColumns(10);
 		
 		JLabel lblY = new JLabel("y");
 		lblY.setBounds(63, 14, 22, 17);
 		lblY.setForeground(primaryColor);
 		add(lblY);
 		
-		textField_2 = new QTextField(primaryColor, secondaryColor);
-		textField_2.setBounds(71, 1, 14, 20);
-		textField_2.setColumns(10);
-		add(textField_2);
+		yTF = new QTextField(primaryColor, secondaryColor);
+		yTF.setBounds(71, 1, 14, 20);
+		yTF.setColumns(10);
+		add(yTF);
 		
 		JLabel lblZ = new JLabel("z");
 		lblZ.setBounds(86, 14, 22, 17);
 		lblZ.setForeground(primaryColor);
 		add(lblZ);
 		
-		textField_3 = new QTextField(primaryColor, secondaryColor);
-		textField_3.setBounds(94, 1, 14, 20);
-		textField_3.setColumns(10);
-		add(textField_3);
+		zTF = new QTextField(primaryColor, secondaryColor);
+		zTF.setBounds(94, 1, 14, 20);
+		zTF.setColumns(10);
+		add(zTF);
+		
+		plusLb = new JLabel("+");
+		plusLb.setBounds(0, 14, 46, 14);
+		plusLb.setForeground(primaryColor);
+		add(plusLb);
+	}
+	
+	public int getCoeff() {
+		return Integer.parseInt(coeffTF.getText());
+	}
 
+	public void setCoeff(int c) {
+		coeffTF.setText("" + c);
+	}
+
+	public int getXPower() {
+		return Integer.parseInt(xTF.getText());
+	}
+
+	public void setXPower(int ix) {
+		xTF.setText("" + ix);
+	}
+
+	public int getYPower() {
+		return Integer.parseInt(yTF.getText());
+	}
+
+	public void setYPower(int iy) {
+		yTF.setText("" + iy);
+	}
+
+	public int getZPower() {
+		return Integer.parseInt(zTF.getText());
+	}
+
+	public void setZPower(int iz) {
+		zTF.setText("" + iz);
+	}
+
+	public Term getPtr() {
+		return ptr;
+	}
+
+	public void setPtr(Term p) {
+		 ptr = p;
 	}
 
 }

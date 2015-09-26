@@ -27,43 +27,6 @@ class Test extends JFrame {
 	public static void main(String[] args) {
 		new Test().setVisible(true);
 	}
-
-	
-	public int getCoeff() {
-		return Integer.parseInt(coeffTF.getText());
-	}
-
-	public void setCoeff(int c) {
-		coeffTF.setText("" + c);
-	}
-
-	public int getXPower() {
-		return Integer.parseInt(xTF.getText());
-	}
-
-	public void setXPower(int ix) {
-		xTF.setText("" + ix);
-	}
-
-	public int getYPower() {
-		return Integer.parseInt(yTF.getText());
-	}
-
-	public void setYPower(int iy) {
-		yTF.setText("" + iy);
-	}
-
-	public int getZPower() {
-		return Integer.parseInt(zTF.getText());
-	}
-
-	public void setZPower(int iz) {
-		zTF.setText("" + iz);
-	}
-
-	public PolyNode getPtr();
-
-	public void setPtr(PolyNode p);
 }
 
 class ScrollPanel extends JPanel {

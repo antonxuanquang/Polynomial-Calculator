@@ -4,7 +4,7 @@ package Interface;
  * 
  * @author James Comer
  */
-public interface PolyNodeInterface {
+public interface TermInterface {
 	// Method signatures
 	public int getCoeff();
 
@@ -22,7 +22,7 @@ public interface PolyNodeInterface {
 
 	public void setZPower(int iz);
 
-	public PolyNode getPtr();
+	public Term getPtr();
 
-	public void setPtr(PolyNode p);
+	public void setPtr(Term p);
 }

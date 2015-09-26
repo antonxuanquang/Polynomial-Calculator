@@ -13,7 +13,6 @@ import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 
 import Interface.Term;
-import Interface.TermWithPlus;
 import Theme.QTextField;
 import Theme.QButton;
 
@@ -107,7 +106,7 @@ public class DisplayArithmeticView extends JPanel {
 		sBar2.setModel(sBar1.getModel());
 		panel.setLayout(null);
 		
-		Term term1 = new Term(lab1.primaryColor, lab1.secondaryColor);
+		Term term1 = new Term(lab1.primaryColor, lab1.secondaryColor, false);
 		term1.setBounds(0, 0, 111, 32);
 		panel.add(term1);
 		term1.setLayout(null);
@@ -120,7 +119,7 @@ public class DisplayArithmeticView extends JPanel {
 	}
 	
 	void addANewTerm() {
-		TermWithPlus term = new TermWithPlus(lab1.primaryColor, lab1.secondaryColor);
+		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
 		if (xCordinate == 440) {
 			xCordinate = 0;
 			yCordinate += 50;
