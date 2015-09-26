@@ -27,6 +27,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		initiate();
 	}
 
+// initialize
 	private void initiate() {
 		createTemporaryPoly();
 		createFirstTerm();
@@ -57,7 +58,7 @@ public class DisplayArithmeticControl implements ActionListener {
 	
 	
 	
-
+// add a term button
 	private void addTerm() {
 		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
 		currentTerm.setPtr(term);
@@ -101,21 +102,32 @@ public class DisplayArithmeticControl implements ActionListener {
 	}
 
 	
-	
+// add a new poly button
 	private void addPoly() {
-//		if (isInPolyLinkedList(temporaryPoly.getPolyName())) {
-//			
-//		}
-		linkToHead();
+		if (!(model.isInPolyLinkedList(view.tfPolyName.getText()))) {
+			temporaryPoly.setPolyName(view.tfPolyName.getText());
+			linkToHead();
+		} else {
+			promptUserForAnotherName();
+			return;
+		}
 		if (passCheckingTemporaryPolyTest()) {
 			cleanUpTemporaryPoly();
 			addNewPolyToModel();
 			updateGUI();
+		} else {
+			return;
 		}
 	}
-	
+
 	private void linkToHead() {
 		addTermInTemporaryPoly(currentTerm, temporaryPoly.getRightPtr());
+	}
+	
+	private void promptUserForAnotherName() {
+		view.lblShowingProcess.setText("'" + view.tfPolyName.getText() + "' is "
+				+ "already in the polynomial lists. Please choose another name ");
+		view.tfPolyName.setText("");
 	}
 
 	private boolean passCheckingTemporaryPolyTest() {

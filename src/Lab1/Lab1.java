@@ -23,7 +23,7 @@ public class Lab1 extends JFrame {
 	PerformArithmeticView performView;
 	ViewController controllerView;
 	EvaluateArithmeticView evaluateView;
-	Lab1Model model;
+	Lab1Model model = new Lab1Model();
 	private JPanel contentPane;
 	
 	final public Color secondaryColor = new Color(36, 96, 104),

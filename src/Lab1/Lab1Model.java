@@ -1,5 +1,6 @@
 package Lab1;
 import Interface.PolyNameNode;
+import Interface.Term;
 
 public class Lab1Model {
 	
@@ -11,8 +12,15 @@ public class Lab1Model {
 		polyLinkedList.setRightPtr(null);
 	}
 	
-//	public boolean isInPolyLinkedList(String name) {
-//		
-//	}
+	public boolean isInPolyLinkedList(String name) {
+		PolyNameNode currentPoly = polyLinkedList.getDownPtr();
+		currentPoly = currentPoly.getDownPtr();
+		while (currentPoly != polyLinkedList.getDownPtr()) {
+			if (currentPoly.getPolyName().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

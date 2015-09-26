@@ -35,9 +35,10 @@ public class DisplayArithmeticView extends JPanel{
 	
 	private Term term;
 	
-	private QTextField tfPolyName, tfSearch;
+	public QTextField tfPolyName, tfSearch;
 	public QButton btnAddTerm, btnAddPoly, btnLoad, btnSaveToDb;
 	public JPanel panelOfTerms;
+	public JLabel lblShowingProcess;
 
 	/**
 	 * Create the panel.
@@ -49,10 +50,10 @@ public class DisplayArithmeticView extends JPanel{
 		
 		setUpPanel();
 		control = new DisplayArithmeticControl(this);
-		
 		control.setUpActionListeners();
 	}
-
+	
+	
 	private void setUpPanel() {
 		setLayout(null);
 		
@@ -79,9 +80,9 @@ public class DisplayArithmeticView extends JPanel{
 		add(panel_1);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblSomeWordsTo = new JLabel("Some words to describe the process");
-		lblSomeWordsTo.setForeground(lab1.primaryColor);
-		panel_1.add(lblSomeWordsTo);
+		lblShowingProcess = new JLabel("Some words to describe the process");
+		lblShowingProcess.setForeground(lab1.primaryColor);
+		panel_1.add(lblShowingProcess);
 		
 		JLabel lblSearch = new JLabel("Search");
 		lblSearch.setBounds(558, 352, 46, 14);
