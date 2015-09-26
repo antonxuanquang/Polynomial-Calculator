@@ -1,3 +1,4 @@
+package Views;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -12,6 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 
+import Controls.DisplayArithmeticControl;
+import Lab1.Lab1;
+import Lab1.Lab1Model;
 import Interface.Term;
 import Theme.QTextField;
 import Theme.QButton;
@@ -26,7 +30,8 @@ import java.awt.event.ActionEvent;
 public class DisplayArithmeticView extends JPanel {
 	
 	private Lab1 lab1;
-	private Lab1Model model;
+	public Lab1Model model;
+	private DisplayArithmeticControl control;
 	
 	private Term term;
 	
@@ -42,6 +47,7 @@ public class DisplayArithmeticView extends JPanel {
 		
 		lab1 = fromLab1;
 		model = fromModel;
+		control = new DisplayArithmeticControl(this);
 		
 		setLayout(null);
 		

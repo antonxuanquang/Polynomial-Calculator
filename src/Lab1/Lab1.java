@@ -1,3 +1,4 @@
+package Lab1;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -6,6 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.Box;
 import javax.swing.border.LineBorder;
+
+import Views.DisplayArithmeticView;
+import Views.EvaluateArithmeticView;
+import Views.PerformArithmeticView;
+import Views.ViewController;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.SystemColor;
@@ -36,7 +43,6 @@ public class Lab1 extends JFrame {
 	 */
 	public Lab1() {
 		setInitialGUI();
-		setBounds(100, 100, 1050, 720);
 	}
 	
 	private void setInitialGUI() {

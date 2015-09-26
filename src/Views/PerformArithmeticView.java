@@ -1,5 +1,10 @@
+package Views;
 import javax.swing.JPanel;
 
+import Controls.DisplayArithmeticControl;
+import Controls.PerformArithmeticControl;
+import Lab1.Lab1;
+import Lab1.Lab1Model;
 import Theme.QButton;
 import Theme.QTextField;
 
@@ -12,7 +17,8 @@ import java.awt.FlowLayout;
 public class PerformArithmeticView extends JPanel {
 
 	private Lab1 lab1;
-	private Lab1Model model;
+	public Lab1Model model;
+	private PerformArithmeticControl control;
 
 	private QTextField textField;
 	private QTextField textField_1;
@@ -27,6 +33,7 @@ public class PerformArithmeticView extends JPanel {
 	public PerformArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
 		lab1 = fromLab1;
 		model = fromModel;
+		control = new PerformArithmeticControl(this);
 		
 		setLayout(null);
 		

@@ -1,3 +1,4 @@
+package Lab1;
 import Interface.PolyNameNode;
 
 public class Lab1Model {

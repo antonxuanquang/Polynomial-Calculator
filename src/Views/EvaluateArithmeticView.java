@@ -1,4 +1,11 @@
+package Views;
 import javax.swing.JPanel;
+
+import Controls.DisplayArithmeticControl;
+import Controls.EvaluateArithmeticControl;
+import Lab1.Lab1;
+import Lab1.Lab1Model;
+
 import javax.swing.JLabel;
 
 import Theme.QButton;
@@ -13,7 +20,8 @@ import javax.swing.JButton;
 public class EvaluateArithmeticView extends JPanel {
 	
 	private Lab1 lab1;
-	private Lab1Model model;
+	public Lab1Model model;
+	private EvaluateArithmeticControl control;
 	
 	private QTextField textField;
 	private QTextField textField_1;
@@ -28,6 +36,7 @@ public class EvaluateArithmeticView extends JPanel {
 	public EvaluateArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
 		lab1 = fromLab1;
 		model = fromModel;
+		control = new EvaluateArithmeticControl(this);
 		
 		setLayout(null);
 		

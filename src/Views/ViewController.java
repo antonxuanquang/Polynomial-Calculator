@@ -1,5 +1,7 @@
+package Views;
 import javax.swing.JPanel;
 
+import Lab1.Lab1;
 import Theme.QButton;
 
 import javax.swing.JButton;
