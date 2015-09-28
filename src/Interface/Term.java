@@ -9,10 +9,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 
 public class Term extends JPanel implements TermInterface {
-	private QTextField coeffTF;
-	private QTextField xTF;
-	private QTextField yTF;
-	private QTextField zTF;
+	private QTextField coeffTF, xTF, yTF, zTF;
 	private JLabel plusLb;
 	
 	private Term ptr;
@@ -20,6 +17,7 @@ public class Term extends JPanel implements TermInterface {
 	/**
 	 * Create the panel.
 	 */
+	
 	public Term(Color primaryColor, Color secondaryColor) {
 		buildUpPanel(primaryColor, secondaryColor);
 	}
@@ -122,6 +120,18 @@ public class Term extends JPanel implements TermInterface {
 
 	public void setPtr(Term p) {
 		 ptr = p;
+	}
+	
+	public Term addLikeTerm(Term term){
+		this.setCoeff(this.getCoeff() + term.getCoeff());
+		return this;
+	}
+	
+
+	public boolean isEqualPowersTo(Term nextTerm) {
+		return this.getXPower() == nextTerm.getXPower()
+				&& this.getYPower() == nextTerm.getYPower()
+				&& this.getZPower() == nextTerm.getZPower();
 	}
 	
 	@Override

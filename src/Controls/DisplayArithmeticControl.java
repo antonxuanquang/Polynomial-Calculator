@@ -15,7 +15,7 @@ public class DisplayArithmeticControl implements ActionListener {
 	private Lab1Model model;
 	private Lab1 lab1;
 	
-	private int xCordinate, yCordinate = 0;
+	private int xCordinate, yCordinate;
 	private PolyNameNode temporaryPoly;
 	private Term currentTerm;
 	
@@ -29,31 +29,28 @@ public class DisplayArithmeticControl implements ActionListener {
 
 // initialize
 	private void initiate() {
-		createTemporaryPoly();
-		createFirstTerm();
+		xCordinate = 0; yCordinate = 0;
+		temporaryPoly = createTemporaryPoly("Temp");
 	}
 	
-	private void createTemporaryPoly() {
-		temporaryPoly = new PolyNameNode("Temp");
-		currentTerm = new Term(lab1.primaryColor, lab1.secondaryColor);
-		temporaryPoly.setRightPtr(currentTerm);
-		currentTerm.setCoeffAndXYZ(-99, 0, 0, 0);
+	private PolyNameNode createTemporaryPoly(String name) {
+		PolyNameNode temporaryPoly = new PolyNameNode("Temp");
+		temporaryPoly.buildHeadTerm(lab1.primaryColor, lab1.secondaryColor);
 		currentTerm = temporaryPoly.getRightPtr();
+		createFirstTerm();
+		return temporaryPoly;
 	}
 	
 	private void createFirstTerm() {
 		Term firstTerm = new Term(lab1.primaryColor, lab1.secondaryColor, false);
 		addTermIntoPanel(0, 0, firstTerm);		
-		currentTerm.setPtr(firstTerm);
-		currentTerm = currentTerm.getPtr();
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, firstTerm);
 		
 //		delete later
 		firstTerm.setXPower(3);
 		firstTerm.setYPower(4);
 		firstTerm.setZPower(10);
 		firstTerm.setCoeff(3);
-	
-		
 	}
 	
 	
@@ -73,9 +70,10 @@ public class DisplayArithmeticControl implements ActionListener {
 		
 	}
 	
-	private void addTermInTemporaryPoly(Term currentTerm, Term nextTerm) {
+	private Term addTermInTemporaryPolyAndSetPointer(Term currentTerm, Term nextTerm) {
 		currentTerm.setPtr(nextTerm);
 		currentTerm = currentTerm.getPtr();
+		return currentTerm;
 	}
 
 	private void addTermInGUI(Term term) {
@@ -102,6 +100,7 @@ public class DisplayArithmeticControl implements ActionListener {
 	}
 
 	
+	
 // add a new poly button
 	private void addPoly() {
 		if (!(model.isInPolyLinkedList(view.tfPolyName.getText()))) {
@@ -114,14 +113,14 @@ public class DisplayArithmeticControl implements ActionListener {
 		if (passCheckingTemporaryPolyTest()) {
 			cleanUpTemporaryPoly();
 			addNewPolyToModel();
-			updateGUI();
+			//updateGUI();
 		} else {
 			return;
 		}
 	}
 
 	private void linkToHead() {
-		addTermInTemporaryPoly(currentTerm, temporaryPoly.getRightPtr());
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, temporaryPoly.getRightPtr());
 	}
 	
 	private void promptUserForAnotherName() {
@@ -136,7 +135,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		currentTerm = currentTerm.getPtr();
 		while (currentTerm != temporaryPoly.getRightPtr()) {
 			try {
-				System.out.println(currentTerm.toString());
+				currentTerm.toString();
 			} catch (NumberFormatException e) {
 				System.out.println("catch error");
 				return false;
@@ -147,7 +146,34 @@ public class DisplayArithmeticControl implements ActionListener {
 	}
 	
 	private void cleanUpTemporaryPoly() {
-		 
+		loookForLikeTermsAndAdds();
+		arrangeInDescendingOrder();
+	}
+
+	private void loookForLikeTermsAndAdds() {
+		Term headTerm = temporaryPoly.getRightPtr();
+		Term currentTerm = headTerm.getPtr();
+		while (currentTerm != headTerm) {
+			Term previousTerm = currentTerm;
+			Term nextTerm = currentTerm.getPtr();
+			while (nextTerm != headTerm) {
+				if (currentTerm.isEqualPowersTo(nextTerm)) {
+					currentTerm = currentTerm.addLikeTerm(nextTerm);
+					temporaryPoly.removeTerm(previousTerm, nextTerm);
+					nextTerm = previousTerm.getPtr();
+				} else {
+					nextTerm = nextTerm.getPtr();
+					previousTerm = previousTerm.getPtr();
+				}
+			}
+			currentTerm = currentTerm.getPtr();
+		}
+		System.out.println(temporaryPoly);
+	}
+
+	private void arrangeInDescendingOrder() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void addNewPolyToModel() {
@@ -155,14 +181,19 @@ public class DisplayArithmeticControl implements ActionListener {
 		
 	}
 	
+	
 	private void updateGUI() {
-		// TODO Auto-generated method stub
-		
+		view.panelOfTerms.removeAll();
+		lab1.repaint();
+		lab1.validate();
+		initiate();
 	}
 	
 	
 	
 
+	
+	
 	public void actionPerformed (ActionEvent ae) {
 		Object event = ae.getSource();
 		
