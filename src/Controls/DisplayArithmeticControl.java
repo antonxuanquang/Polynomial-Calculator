@@ -42,15 +42,29 @@ public class DisplayArithmeticControl implements ActionListener {
 	}
 	
 	private void createFirstTerm() {
-		Term firstTerm = new Term(lab1.primaryColor, lab1.secondaryColor, false);
+		Term firstTerm = new Term(lab1.primaryColor, lab1.secondaryColor);
+		firstTerm.addPlusLabel(false);
 		addTermIntoPanel(0, 0, firstTerm);		
 		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, firstTerm);
 		
 //		delete later
-		firstTerm.setXPower(3);
-		firstTerm.setYPower(4);
-		firstTerm.setZPower(10);
-		firstTerm.setCoeff(3);
+		firstTerm.setCoeffAndXYZ(4, 4, 5, 6);
+		
+		Term secondTerm = new Term(lab1.primaryColor, lab1.secondaryColor);	
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, secondTerm);
+		secondTerm.setCoeffAndXYZ(4, 5, 6, 7);
+		addTermInGUI(secondTerm);
+		
+		Term third = new Term(lab1.primaryColor, lab1.secondaryColor);	
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, third);
+		third.setCoeffAndXYZ(4, 6, 7, 8);
+		addTermInGUI(third);
+		
+		Term fourth = new Term(lab1.primaryColor, lab1.secondaryColor);	
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, fourth);
+		fourth.setCoeffAndXYZ(4, 7, 8, 9);
+		addTermInGUI(fourth);
+		
 	}
 	
 	
@@ -58,16 +72,8 @@ public class DisplayArithmeticControl implements ActionListener {
 // add a term button
 	private void addTerm() {
 		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
-		currentTerm.setPtr(term);
-		currentTerm = currentTerm.getPtr();
-		addTermInGUI(term);
-		
-//		delete later
-		term.setXPower(4);
-		term.setYPower(4);
-		term.setZPower(4);
-		term.setCoeff(4);
-		
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, term);
+		addTermInGUI(term);	
 	}
 	
 	private Term addTermInTemporaryPolyAndSetPointer(Term currentTerm, Term nextTerm) {
@@ -168,12 +174,32 @@ public class DisplayArithmeticControl implements ActionListener {
 			}
 			currentTerm = currentTerm.getPtr();
 		}
-		System.out.println(temporaryPoly);
 	}
 
 	private void arrangeInDescendingOrder() {
-		// TODO Auto-generated method stub
-		
+		Term headTerm = temporaryPoly.getRightPtr();
+		Term currentTerm = headTerm.getPtr();
+		while (currentTerm != headTerm) {
+			Term nextTerm = currentTerm.getPtr();
+			while (nextTerm != headTerm) {
+				if (currentTerm.isHavingLessPower(nextTerm)) {
+					System.out.println("*****");
+					System.out.println("current = " + currentTerm);
+					System.out.println("next = " + nextTerm);
+					System.out.println("***** sau");
+					temporaryPoly.swapTwoTerms(currentTerm, nextTerm);
+					currentTerm = nextTerm;
+					nextTerm = currentTerm.getPtr();
+//					System.out.println("current = " + currentTerm);
+//					System.out.println("next = " + nextTerm);
+					System.out.println("******************\n");
+				} else {
+					nextTerm = nextTerm.getPtr();
+				}
+				System.out.println(temporaryPoly);
+			}
+			currentTerm = currentTerm.getPtr();
+		}
 	}
 
 	private void addNewPolyToModel() {

@@ -22,12 +22,7 @@ public class Term extends JPanel implements TermInterface {
 		buildUpPanel(primaryColor, secondaryColor);
 	}
 	
-	public Term(Color primaryColor, Color secondaryColor, boolean withoutPlus) {
-		buildUpPanel(primaryColor, secondaryColor);
-		addPlusLabel(withoutPlus);
-	}
-	
-	private void addPlusLabel(boolean withoutPlus) {
+	public void addPlusLabel(boolean withoutPlus) {
 		plusLb.setVisible(withoutPlus);
 	}
 
@@ -132,6 +127,18 @@ public class Term extends JPanel implements TermInterface {
 		return this.getXPower() == nextTerm.getXPower()
 				&& this.getYPower() == nextTerm.getYPower()
 				&& this.getZPower() == nextTerm.getZPower();
+	}
+	
+	public boolean isHavingLessPower(Term term) {
+		if (this.getXPower() == term.getXPower()) {
+			if (this.getYPower() == term.getYPower()) {
+				return this.getZPower() < term.getZPower();
+			} else {
+				return this.getYPower() < term.getYPower();
+			}
+		} else {
+			return this.getXPower() < term.getYPower();
+		}
 	}
 	
 	@Override

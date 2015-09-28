@@ -69,5 +69,15 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	public void removeTerm (Term previousTerm, Term currentTerm) {
 		previousTerm.setPtr(currentTerm.getPtr());
 	}
+	
+	public void swapTwoTerms (Term preCurrentTer, Term currentTerm, 
+			Term preNextTerm, Term nextTerm) {
+		Term currentTempTerm = currentTerm;
+		Term nextTempTerm = nextTerm;
+		currentTerm = nextTempTerm;
+		nextTerm = currentTempTerm;
+		System.out.println("current = " + currentTerm);
+		System.out.println("next = " + nextTerm);
+	}
 
 }
