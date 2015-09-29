@@ -65,6 +65,15 @@ public class DisplayArithmeticControl implements ActionListener {
 		fourth.setCoeffAndXYZ(4, 7, 8, 9);
 		addTermInGUI(fourth);
 		
+		Term fifth = new Term(lab1.primaryColor, lab1.secondaryColor);	
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, fifth);
+		fifth.setCoeffAndXYZ(5, 5, 6, 7);
+		addTermInGUI(fifth);
+		
+		Term sixth = new Term(lab1.primaryColor, lab1.secondaryColor);	
+		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, sixth);
+		sixth.setCoeffAndXYZ(4, 4, 5, 6);
+		addTermInGUI(sixth);
 	}
 	
 	
@@ -109,8 +118,13 @@ public class DisplayArithmeticControl implements ActionListener {
 	
 // add a new poly button
 	private void addPoly() {
-		if (!(model.isInPolyLinkedList(view.tfPolyName.getText()))) {
-			temporaryPoly.setPolyName(view.tfPolyName.getText());
+		String polyName = view.tfPolyName.getText();
+		if (polyName.equals("")) {
+			promptUserForAName();
+			return;
+		}
+		if (!(model.isInPolyLinkedList(polyName))) {
+			temporaryPoly.setPolyName(polyName);
 			linkToHead();
 		} else {
 			promptUserForAnotherName();
@@ -123,6 +137,10 @@ public class DisplayArithmeticControl implements ActionListener {
 		} else {
 			return;
 		}
+	}
+
+	private void promptUserForAName() {
+		view.lblShowingProcess.setText("Please provide a Polynomial Name");
 	}
 
 	private void linkToHead() {
@@ -152,59 +170,46 @@ public class DisplayArithmeticControl implements ActionListener {
 	}
 	
 	private void cleanUpTemporaryPoly() {
+		// exclude zeroes coefficient
+		temporaryPoly = arrangeInDescendingOrder();
 		loookForLikeTermsAndAdds();
-		arrangeInDescendingOrder();
+	}
+	
+	private PolyNameNode arrangeInDescendingOrder() {
+		PolyNameNode resultPoly = new PolyNameNode();
+		resultPoly.buildHeadTerm(lab1.primaryColor, lab1.secondaryColor);
+		Term headTerm = temporaryPoly.getRightPtr();
+		Term currentTerm = headTerm.getPtr();
+		while (currentTerm != headTerm) {
+			Term term = currentTerm;
+			temporaryPoly.removeTerm(headTerm, currentTerm);
+			resultPoly.addTerm(term);
+			currentTerm = headTerm.getPtr();
+		}
+		
+		return resultPoly;
 	}
 
 	private void loookForLikeTermsAndAdds() {
 		Term headTerm = temporaryPoly.getRightPtr();
 		Term currentTerm = headTerm.getPtr();
 		while (currentTerm != headTerm) {
-			Term previousTerm = currentTerm;
 			Term nextTerm = currentTerm.getPtr();
-			while (nextTerm != headTerm) {
-				if (currentTerm.isEqualPowersTo(nextTerm)) {
-					currentTerm = currentTerm.addLikeTerm(nextTerm);
-					temporaryPoly.removeTerm(previousTerm, nextTerm);
-					nextTerm = previousTerm.getPtr();
-				} else {
-					nextTerm = nextTerm.getPtr();
-					previousTerm = previousTerm.getPtr();
-				}
+			if (currentTerm.isEqualPowersTo(nextTerm)) {
+				currentTerm = currentTerm.addLikeTerm(nextTerm);
+				temporaryPoly.removeTerm(currentTerm, nextTerm);
+				nextTerm = currentTerm.getPtr();
+			} else {
+				currentTerm = currentTerm.getPtr();	
 			}
-			currentTerm = currentTerm.getPtr();
 		}
-	}
-
-	private void arrangeInDescendingOrder() {
-		Term headTerm = temporaryPoly.getRightPtr();
-		Term currentTerm = headTerm.getPtr();
-		while (currentTerm != headTerm) {
-			Term nextTerm = currentTerm.getPtr();
-			while (nextTerm != headTerm) {
-				if (currentTerm.isHavingLessPower(nextTerm)) {
-					System.out.println("*****");
-					System.out.println("current = " + currentTerm);
-					System.out.println("next = " + nextTerm);
-					System.out.println("***** sau");
-					temporaryPoly.swapTwoTerms(currentTerm, nextTerm);
-					currentTerm = nextTerm;
-					nextTerm = currentTerm.getPtr();
-//					System.out.println("current = " + currentTerm);
-//					System.out.println("next = " + nextTerm);
-					System.out.println("******************\n");
-				} else {
-					nextTerm = nextTerm.getPtr();
-				}
-				System.out.println(temporaryPoly);
-			}
-			currentTerm = currentTerm.getPtr();
-		}
+//		System.out.println(temporaryPoly);
 	}
 
 	private void addNewPolyToModel() {
 		// TODO Auto-generated method stub
-		
+		model.addPoly(temporaryPoly);
+		System.out.println(model.toString() + "done");
 	}
 	
 	

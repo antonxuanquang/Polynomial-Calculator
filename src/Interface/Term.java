@@ -71,6 +71,10 @@ public class Term extends JPanel implements TermInterface {
 	}
 	
 	public int getCoeff() {
+		if (coeffTF.getText().equals(null)) {
+			setCoeff(0);
+			return 0;
+		}
 		return Integer.parseInt(coeffTF.getText());
 	}
 
@@ -79,6 +83,10 @@ public class Term extends JPanel implements TermInterface {
 	}
 
 	public int getXPower() {
+		if (xTF.getText().equals(null)) {
+			setXPower(0);
+			return 0;
+		}
 		return Integer.parseInt(xTF.getText());
 	}
 
@@ -87,6 +95,10 @@ public class Term extends JPanel implements TermInterface {
 	}
 
 	public int getYPower() {
+		if (yTF.getText().equals(null)) {
+			setYPower(0);
+			return 0;
+		}
 		return Integer.parseInt(yTF.getText());
 	}
 
@@ -95,6 +107,10 @@ public class Term extends JPanel implements TermInterface {
 	}
 
 	public int getZPower() {
+		if (zTF.getText().equals(null)) {
+			setZPower(0);
+			return 0;
+		}
 		return Integer.parseInt(zTF.getText());
 	}
 

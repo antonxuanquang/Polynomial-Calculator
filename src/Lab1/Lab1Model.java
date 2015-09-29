@@ -12,6 +12,10 @@ public class Lab1Model {
 		polyLinkedList.setRightPtr(null);
 	}
 	
+	public PolyNameNode getHeadOfPolyLists() {
+		return polyLinkedList;
+	}
+	
 	public boolean isInPolyLinkedList(String name) {
 		PolyNameNode currentPoly = polyLinkedList.getDownPtr();
 		currentPoly = currentPoly.getDownPtr();
@@ -21,6 +25,22 @@ public class Lab1Model {
 			}
 		}
 		return false;
+	}
+	
+	public void addPoly(PolyNameNode poly) {
+		
+	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		PolyNameNode currentPoly = polyLinkedList.getDownPtr();
+		while (currentPoly != getHeadOfPolyLists()) {
+			result += currentPoly.getPolyName();
+			currentPoly = currentPoly.getDownPtr();
+		}
+		System.out.println(result);
+		return result;
 	}
 
 }

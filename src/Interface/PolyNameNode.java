@@ -47,8 +47,12 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		rightPointer = this.getRightPtr();
 	}
 	
-	public boolean isEmpty(PolyNameNode poly) {
+	public boolean isEmpty() {
 		return downPointer == this || downPointer == null;
+	}
+	
+	public Term getFirstTerm() {
+		return rightPointer.getPtr();
 	}
 	
 	@Override
@@ -70,14 +74,25 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		previousTerm.setPtr(currentTerm.getPtr());
 	}
 	
-	public void swapTwoTerms (Term preCurrentTer, Term currentTerm, 
-			Term preNextTerm, Term nextTerm) {
-		Term currentTempTerm = currentTerm;
-		Term nextTempTerm = nextTerm;
-		currentTerm = nextTempTerm;
-		nextTerm = currentTempTerm;
-		System.out.println("current = " + currentTerm);
-		System.out.println("next = " + nextTerm);
+	public void addTerm (Term term) {
+		if (getFirstTerm() == null) {
+			term.setPtr(rightPointer);
+			rightPointer.setPtr(term);
+		} else {
+			Term head = rightPointer;
+			Term previousTerm = head;
+			Term currentTerm = getFirstTerm();
+			while (currentTerm != head) {
+				if (term.isHavingLessPower(currentTerm)) {
+					previousTerm = previousTerm.getPtr();
+					currentTerm = currentTerm.getPtr();
+				} else {
+					term.setPtr(currentTerm);
+					previousTerm.setPtr(term);
+					break;
+				}
+			}
+		}
 	}
 
 }
