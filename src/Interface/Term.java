@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 public class Term extends JPanel implements TermInterface {
 	private QTextField coeffTF, xTF, yTF, zTF;
 	private JLabel plusLb;
-	
+	public Color primaryColor, secondaryColor;
 	private Term ptr;
 
 	/**
@@ -19,6 +19,8 @@ public class Term extends JPanel implements TermInterface {
 	 */
 	
 	public Term(Color primaryColor, Color secondaryColor) {
+		this.primaryColor = primaryColor;
+		this.secondaryColor = secondaryColor;
 		buildUpPanel(primaryColor, secondaryColor);
 	}
 	
@@ -153,16 +155,22 @@ public class Term extends JPanel implements TermInterface {
 				return this.getYPower() < term.getYPower();
 			}
 		} else {
-			return this.getXPower() < term.getYPower();
+			return this.getXPower() < term.getXPower();
 		}
+	}
+	
+	public void copy(Term term) {
+		this.setCoeff(term.getCoeff());
+		this.setXPower(term.getXPower());
+		this.setYPower(term.getYPower());
+		this.setZPower(term.getZPower());
 	}
 	
 	@Override
 	public String toString() {
-		return "Coefficient = " + Integer.parseInt(coeffTF.getText()) + "\n"
-				+ "x-exponent = " + Integer.parseInt(xTF.getText()) + "\n"
-				+ "y-exponent = " + Integer.parseInt(yTF.getText()) + "\n"
-				+ "z-exponent = " + Integer.parseInt(zTF.getText()) + "\n";
+		return "Coefficient = " + getCoeff() + "\n"
+				+ "x-exponent = " + getXPower() + "\n"
+				+ "y-exponent = " + getYPower() + "\n"
+				+ "z-exponent = " + getZPower() + "\n";
 	}
-
 }

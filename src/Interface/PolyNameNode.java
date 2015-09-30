@@ -43,7 +43,7 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	public void buildHeadTerm(Color primaryColor, Color secondaryColor) {
 		rightPointer = new Term(primaryColor, secondaryColor);
 		this.setRightPtr(rightPointer);
-		rightPointer.setCoeffAndXYZ(-99, 0, 0, 0);
+		rightPointer.setCoeffAndXYZ(0, -99, -99, -99);
 		rightPointer = this.getRightPtr();
 	}
 	
@@ -86,6 +86,10 @@ public class PolyNameNode implements PolyNameNodeInterface{
 				if (term.isHavingLessPower(currentTerm)) {
 					previousTerm = previousTerm.getPtr();
 					currentTerm = currentTerm.getPtr();
+					if (currentTerm == head) {
+						term.setPtr(currentTerm);
+						previousTerm.setPtr(term);
+					}
 				} else {
 					term.setPtr(currentTerm);
 					previousTerm.setPtr(term);
@@ -94,5 +98,16 @@ public class PolyNameNode implements PolyNameNodeInterface{
 			}
 		}
 	}
-
+	
+	public void copy (PolyNameNode poly) {
+		setPolyName(poly.getPolyName());
+		Term currentTerm = poly.getFirstTerm();
+		while (currentTerm != poly.getRightPtr()) {
+			Term term = new Term(currentTerm.primaryColor, 
+					currentTerm.secondaryColor);
+			term.copy(currentTerm);
+			addTerm(term);
+			currentTerm = currentTerm.getPtr();
+		}
+	}	
 }

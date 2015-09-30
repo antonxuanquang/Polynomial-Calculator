@@ -49,6 +49,16 @@ public class DisplayArithmeticControl implements ActionListener {
 		
 //		delete later
 		firstTerm.setCoeffAndXYZ(4, 4, 5, 6);
+		view.tfPolyName.setText("abc");
+	}
+	
+	
+	
+// add a term button
+	private void addTerm() {
+//		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
+//		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, term);
+//		addTermInGUI(term);	
 		
 		Term secondTerm = new Term(lab1.primaryColor, lab1.secondaryColor);	
 		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, secondTerm);
@@ -74,15 +84,6 @@ public class DisplayArithmeticControl implements ActionListener {
 		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, sixth);
 		sixth.setCoeffAndXYZ(4, 4, 5, 6);
 		addTermInGUI(sixth);
-	}
-	
-	
-	
-// add a term button
-	private void addTerm() {
-		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, term);
-		addTermInGUI(term);	
 	}
 	
 	private Term addTermInTemporaryPolyAndSetPointer(Term currentTerm, Term nextTerm) {
@@ -124,7 +125,6 @@ public class DisplayArithmeticControl implements ActionListener {
 			return;
 		}
 		if (!(model.isInPolyLinkedList(polyName))) {
-			temporaryPoly.setPolyName(polyName);
 			linkToHead();
 		} else {
 			promptUserForAnotherName();
@@ -133,7 +133,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		if (passCheckingTemporaryPolyTest()) {
 			cleanUpTemporaryPoly();
 			addNewPolyToModel();
-			//updateGUI();
+			updateGUI();
 		} else {
 			return;
 		}
@@ -154,7 +154,6 @@ public class DisplayArithmeticControl implements ActionListener {
 	}
 
 	private boolean passCheckingTemporaryPolyTest() {
-		// TODO Auto-generated method stub
 		Term currentTerm = temporaryPoly.getRightPtr();
 		currentTerm = currentTerm.getPtr();
 		while (currentTerm != temporaryPoly.getRightPtr()) {
@@ -186,7 +185,6 @@ public class DisplayArithmeticControl implements ActionListener {
 			resultPoly.addTerm(term);
 			currentTerm = headTerm.getPtr();
 		}
-		
 		return resultPoly;
 	}
 
@@ -203,21 +201,23 @@ public class DisplayArithmeticControl implements ActionListener {
 				currentTerm = currentTerm.getPtr();	
 			}
 		}
-//		System.out.println(temporaryPoly);
 	}
 
 	private void addNewPolyToModel() {
-		// TODO Auto-generated method stub
-		model.addPoly(temporaryPoly);
-		System.out.println(model.toString() + "done");
+		temporaryPoly.setPolyName(view.tfPolyName.getText());
+		PolyNameNode newPoly = new PolyNameNode();
+		newPoly.buildHeadTerm(lab1.primaryColor, lab1.secondaryColor);
+		newPoly.copy(temporaryPoly);
+		model.addPoly(newPoly);
 	}
 	
 	
 	private void updateGUI() {
 		view.panelOfTerms.removeAll();
+		view.tfPolyName.setText("");
+		initiate();
 		lab1.repaint();
 		lab1.validate();
-		initiate();
 	}
 	
 	
