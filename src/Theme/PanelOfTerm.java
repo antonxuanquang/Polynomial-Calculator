@@ -14,10 +14,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
+import Controls.DisplayArithmeticControl;
+
 public class PanelOfTerm extends JPanel {
 
 	private PolyNameNode poly;
 	private Lab1Model model;
+	private DisplayArithmeticControl control;
 	private JLabel lblPolyName;
 	private int xCordinate, yCordinate = 0;
 	
@@ -26,10 +29,11 @@ public class PanelOfTerm extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelOfTerm(PolyNameNode poly, Lab1Model fromModel) {
+	public PanelOfTerm(PolyNameNode poly, DisplayArithmeticControl control) {
 
 		this.poly = poly;
-		model = fromModel;
+		this.control = control;
+		model = control.getModel();
 		
 		Term temp = poly.getFirstTerm();
 		primaryColor = temp.primaryColor;
@@ -48,12 +52,14 @@ public class PanelOfTerm extends JPanel {
 		
 		JLabel label = new JLabel("=");
 		label.setBounds(97, 25, 46, 14);
+		label.setForeground(primaryColor);
 		add(label);
 		
 		QButton btnNewButton = new QButton("Remove", primaryColor, secondaryColor);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				model.getHeadOfPolyLists().removeByName(lblPolyName.getText());
+				model.getHeadOfPolyLists().removeByName(lblPolyName.getText());
+				control.updatePanelOfPolies(model.getHeadOfPolyLists());
 			}
 		});
 		btnNewButton.setBounds(700, 21, 89, 23);

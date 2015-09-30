@@ -218,34 +218,37 @@ public class DisplayArithmeticControl implements ActionListener {
 	private void updateGUI() {
 		updatePanelOfTerms();
 		updatePanelOfPolies(model.getHeadOfPolyLists());
-		lab1.repaint();
-		lab1.validate();
 	}
 
 	private void updatePanelOfTerms() {
+		view.lblShowingProcess.setText("");
 		view.panelOfTerms.removeAll();
 		view.tfPolyName.setText("");
 		initiate();
 	}
 	
-	private void updatePanelOfPolies(PolyNameNode poly) {
+	public void updatePanelOfPolies(PolyNameNode poly) {
 		view.panelOfPoly.removeAll();
 		PolyNameNode currentPoly = poly.getDownPtr();
 		int yCordinate = 0;
 		while (currentPoly != poly) {
-			PanelOfTerm panelOfTerm = new PanelOfTerm(currentPoly, model);
+			PanelOfTerm panelOfTerm = new PanelOfTerm(currentPoly, this);
 			view.panelOfPoly.add(panelOfTerm);
 			System.out.println(yCordinate);
 			yCordinate += panelOfTerm.getYCordinate();
 			currentPoly = currentPoly.getDownPtr();
 		}
 		view.panelOfPoly.setPreferredSize(new Dimension(830, yCordinate + 50));
+		lab1.repaint();
+		lab1.validate();
 	}
 	
 	
 	
 	
-	
+	public Lab1Model getModel() {
+		return model;
+	}
 
 	public void actionPerformed (ActionEvent ae) {
 		Object event = ae.getSource();

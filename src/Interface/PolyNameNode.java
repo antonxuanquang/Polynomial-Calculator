@@ -130,6 +130,10 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		poly.setDownPtr(this.getDownPtr());
 		this.setDownPtr(poly);
 	}
+	
+	public void removePoly(PolyNameNode previousPoly, PolyNameNode currentPoly) {
+		previousPoly.setDownPtr(currentPoly.getDownPtr());
+	}
 
 	public String getAllPolyNames() {
 		String result = "";
@@ -139,6 +143,20 @@ public class PolyNameNode implements PolyNameNodeInterface{
 			currentPoly = currentPoly.getDownPtr();
 		}
 		return result;
+	}
+
+	public void removeByName(String text) {
+		PolyNameNode previousPoly = this;
+		PolyNameNode currentPoly = this.getDownPtr();
+		while (currentPoly != getHeadOfPolyLists()) {
+			if (currentPoly.getPolyName().equals(text)) {
+				removePoly(previousPoly, currentPoly);
+				return;
+			} else {
+				previousPoly = previousPoly.getDownPtr();
+				currentPoly = currentPoly.getDownPtr();
+			}
+		}
 	}
 
 }

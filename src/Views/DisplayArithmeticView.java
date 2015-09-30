@@ -89,7 +89,7 @@ public class DisplayArithmeticView extends JPanel{
 		add(panel_1);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		lblShowingProcess = new JLabel("Some words to describe the process");
+		lblShowingProcess = new JLabel("");
 		lblShowingProcess.setForeground(lab1.primaryColor);
 		panel_1.add(lblShowingProcess);
 		
