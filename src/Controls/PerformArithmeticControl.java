@@ -11,6 +11,7 @@ import Interface.PolyNameNode;
 import Lab1.Lab1;
 import Lab1.Lab1Model;
 import Theme.PanelOfTerm;
+import Views.DisplayArithmeticView;
 import Views.PerformArithmeticView;
 
 public class PerformArithmeticControl implements ActionListener {
@@ -18,14 +19,18 @@ public class PerformArithmeticControl implements ActionListener {
 	private PerformArithmeticView view;
 	private Lab1Model model;
 	private Lab1 lab1;
+	private DisplayArithmeticView displayView;
 	
-	private PolyNameNode firstOperand, secondOperand;
+	private PolyNameNode firstOperand, secondOperand, resultPoly;
+	private PanelOfTerm resultPanel;
 	
 	public PerformArithmeticControl (PerformArithmeticView fromView) {
 		view = fromView;
 		model = view.model;
 		lab1 = view.lab1;
+		displayView = lab1.displayView;
 		
+		updateJComboBox(model.getHeadOfPolyLists());
 	}
 	
 	public void updateJComboBox(PolyNameNode polyLinkedList) {
@@ -39,6 +44,13 @@ public class PerformArithmeticControl implements ActionListener {
 			currentPoly = currentPoly.getDownPtr();
 		}
 		manipulateJComboBox(first, second);
+	}
+	
+	private void resetJComboBox() {
+		view.firstOperand.removeAllItems();
+		view.secondOperand.removeAllItems();
+		view.firstOperand.addItem("**Choose a polynomial");
+		view.secondOperand.addItem("**Choose a polynomial");
 	}
 	
 	private void manipulateJComboBox(String first, String second) {
@@ -70,6 +82,10 @@ public class PerformArithmeticControl implements ActionListener {
 		return false;
 	}
 	
+	
+	
+	//updateGUI after each selection from JComboBox and prepare two Polynomials
+	//to perform polynomial arithmetic calculations
 	private void displayFirstOperand() {
 		if(view.firstOperand.getSelectedIndex() > 0) {
 			view.secondOperand.setEnabled(true);
@@ -92,14 +108,15 @@ public class PerformArithmeticControl implements ActionListener {
 		}
 	}
 	
-	private void displayOperand(PolyNameNode operand, JPanel panel) {
+	private PanelOfTerm  displayOperand(PolyNameNode operand, JPanel panel) {
 		panel.removeAll();
-		PanelOfTerm firstPanel = new PanelOfTerm(operand, lab1.displayView.control);
+		PanelOfTerm firstPanel = new PanelOfTerm(operand, displayView.control);
 		firstPanel.removeDeleteBtn();
 		firstPanel.setPreferredSize(new Dimension (800, firstPanel.getYCordinate()));
 		panel.add(firstPanel);
 		lab1.performView.repaint();
 		lab1.performView.validate();
+		return firstPanel;
 	}
 	
 	private PolyNameNode selectOperand(PolyNameNode polyLinkedList, String name) {
@@ -116,17 +133,43 @@ public class PerformArithmeticControl implements ActionListener {
 		return currentPoly;
 	}
 	
+	
+	
 	private void performArithmetic() {
+		resultPoly = new PolyNameNode();
+		switch (view.operator.getSelectedIndex()) {
+			case 1: resultPoly = firstOperand.add(secondOperand); break;
+			case 2: resultPoly = firstOperand.subtract(secondOperand); break;
+			case 3: resultPoly = firstOperand.multiply(secondOperand); break;
+		}
+		resultPanel = displayOperand(resultPoly, view.panelResultTerm);
+		resultPanel.replaceLblNameAsTextField();
 		
+		view.btnSave.setVisible(true);
+		view.lblShowingProcess.setText("Successful!!");
 	}
 	
-	private void resetJComboBox() {
-		view.firstOperand.removeAllItems();
-		view.secondOperand.removeAllItems();
-		view.firstOperand.addItem("**Choose a polynomial");
-		view.secondOperand.addItem("**Choose a polynomial");
+	
+	
+	
+	private void saveResult() {
+		resultPoly.setPolyName(resultPanel.getPolyName());
+		if (model.getHeadOfPolyLists().isInPolyLinkedList(resultPoly.getPolyName())) {
+			promptUserForAnotherName();
+		} else {
+			model.getHeadOfPolyLists().addPoly(resultPoly);
+			displayView.control.updatePanelOfPolies(model.getHeadOfPolyLists());
+			lab1.setUpPerformPolynomialView();
+			lab1.performView.lblShowingProcess.setText("Every thing has been saved");
+		}
 	}
 	
+	private void promptUserForAnotherName() {
+		System.out.println(resultPanel.getPolyName());
+		view.lblShowingProcess.setText("'" + resultPanel.getPolyName() + "' is "
+				+ "already in the polynomial lists. Please choose another name ");
+		resultPanel.setPolyName("");
+	}
 	
 	
 	public void actionPerformed(ActionEvent ae) {
@@ -134,7 +177,7 @@ public class PerformArithmeticControl implements ActionListener {
 		if (event.equals(view.firstOperand)) displayFirstOperand();
 		else if (event.equals(view.secondOperand)) displaySecondOperand();
 		else if (event.equals(view.operator)) performArithmetic();
-		else if (event.equals(view.btnSave)) ;
+		else if (event.equals(view.btnSave)) saveResult();
 	}
 
 	public void setActionListeners() {

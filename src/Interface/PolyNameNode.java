@@ -45,6 +45,7 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		this.setRightPtr(rightPointer);
 		rightPointer.setCoeffAndXYZ(0, -99, -99, -99);
 		rightPointer = this.getRightPtr();
+		rightPointer.setPtr(rightPointer);
 	}
 	
 	public boolean isEmpty() {
@@ -75,7 +76,7 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	}
 	
 	public void addTerm (Term term) {
-		if (getFirstTerm() == null) {
+		if (getFirstTerm() == rightPointer) {
 			term.setPtr(rightPointer);
 			rightPointer.setPtr(term);
 		} else {
@@ -157,6 +158,54 @@ public class PolyNameNode implements PolyNameNodeInterface{
 				currentPoly = currentPoly.getDownPtr();
 			}
 		}
+	}
+
+	
+
+	public PolyNameNode add(PolyNameNode poly) {
+		// TODO Auto-generated method stub
+		PolyNameNode result = new PolyNameNode();
+		result.buildHeadTerm(getFirstTerm().primaryColor, getFirstTerm().secondaryColor);
+		Term termP = this.getFirstTerm();
+		Term termQ = poly.getFirstTerm();
+		while (termP != this.getRightPtr() && termQ != poly.getRightPtr()) {
+			Term term = new Term(termP.primaryColor, termP.secondaryColor);
+			if (termP.isEqualPowersTo(termQ)) {
+				term.copy(termQ);
+				int sumCoeff = termP.getCoeff() + termQ.getCoeff();
+				term.setCoeff(sumCoeff);
+				if (sumCoeff != 0) {
+					result.addTerm(term);
+				}
+				termP = termP.getPtr();
+				termQ = termQ.getPtr();
+			} else {
+				if (termP.isHavingLessPower(termQ)) {
+					term.copy(termQ);
+					result.addTerm(term);
+					termQ = termQ.getPtr();
+				} else {
+					term.copy(termP);
+					result.addTerm(term);
+					termP = termP.getPtr();
+				}
+			}
+		}
+		return result;
+	}
+
+	public PolyNameNode subtract(PolyNameNode poly) {
+		PolyNameNode result = new PolyNameNode();
+		result.buildHeadTerm(getFirstTerm().primaryColor, getFirstTerm().secondaryColor);
+		
+		return result;
+	}
+
+	public PolyNameNode multiply(PolyNameNode poly) {
+		PolyNameNode result = new PolyNameNode();
+		result.buildHeadTerm(getFirstTerm().primaryColor, getFirstTerm().secondaryColor);
+		
+		return result;
 	}
 
 }

@@ -24,6 +24,7 @@ public class PanelOfTerm extends JPanel {
 	private JLabel lblPolyName;
 	private int xCordinate, yCordinate = 0;
 	private QButton btnRemove;
+	private QTextField tfName;
 	
 	private Color primaryColor, secondaryColor;
 	
@@ -98,5 +99,20 @@ public class PanelOfTerm extends JPanel {
 	
 	public int getYCordinate() {
 		return yCordinate + 50;
+	}
+	
+	public void replaceLblNameAsTextField() {
+		tfName = new QTextField(primaryColor, secondaryColor);
+		remove(lblPolyName);
+		add(tfName);
+		tfName.setBounds(20, 20, 75, 20);
+	}
+	
+	public String getPolyName() {
+		return tfName.getText();
+	}
+	
+	public void setPolyName(String name) {
+		tfName.setText(name);
 	}
 }

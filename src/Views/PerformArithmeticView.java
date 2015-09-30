@@ -25,6 +25,7 @@ public class PerformArithmeticView extends JPanel {
 	public JComboBox firstOperand, operator, secondOperand;
 	public QButton btnSave;
 	public JPanel panelOfFirstTerm, panelOfSecondTerm, panelResultTerm;
+	public JLabel lblShowingProcess;
 
 	 /**
 	 * Create the panel.
@@ -32,9 +33,10 @@ public class PerformArithmeticView extends JPanel {
 	public PerformArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
 		lab1 = fromLab1;
 		model = fromModel;
-		control = new PerformArithmeticControl(this);
 		
 		buildUpGUI();		
+		
+		control = new PerformArithmeticControl(this);
 		control.setActionListeners();
 	}
 	
@@ -69,12 +71,13 @@ public class PerformArithmeticView extends JPanel {
 		add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblLabelToShow = new JLabel("Label to show process");
-		lblLabelToShow.setForeground(lab1.primaryColor);
-		panel.add(lblLabelToShow);
+		lblShowingProcess = new JLabel("");
+		lblShowingProcess.setForeground(lab1.primaryColor);
+		panel.add(lblShowingProcess);
 		
 		btnSave = new QButton("Save", lab1.primaryColor, lab1.secondaryColor);
 		btnSave.setBounds(617, 293, 105, 20);
+		btnSave.setVisible(false);
 		add(btnSave);
 		
 		JScrollPane scrollPane = new JScrollPane();
