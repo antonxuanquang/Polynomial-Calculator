@@ -109,5 +109,36 @@ public class PolyNameNode implements PolyNameNodeInterface{
 			addTerm(term);
 			currentTerm = currentTerm.getPtr();
 		}
-	}	
+	}
+	
+	public PolyNameNode getHeadOfPolyLists() {
+		return this;
+	}
+	
+	public boolean isInPolyLinkedList(String name) {	
+		PolyNameNode currentPoly = this.getDownPtr();
+		while (currentPoly != getHeadOfPolyLists()) {
+			if (currentPoly.getPolyName().equals(name)) {
+				return true;
+			}
+			currentPoly = currentPoly.getDownPtr();
+		}
+		return false;
+	}
+	
+	public void addPoly(PolyNameNode poly) {
+		poly.setDownPtr(this.getDownPtr());
+		this.setDownPtr(poly);
+	}
+
+	public String getAllPolyNames() {
+		String result = "";
+		PolyNameNode currentPoly = this.getDownPtr();
+		while (currentPoly != getHeadOfPolyLists()) {
+			result += currentPoly.getPolyName() + "\n";
+			currentPoly = currentPoly.getDownPtr();
+		}
+		return result;
+	}
+
 }

@@ -1,5 +1,6 @@
 package Controls;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,6 +8,7 @@ import Interface.PolyNameNode;
 import Interface.Term;
 import Lab1.Lab1;
 import Lab1.Lab1Model;
+import Theme.PanelOfTerm;
 import Views.DisplayArithmeticView;
 
 public class DisplayArithmeticControl implements ActionListener {
@@ -102,9 +104,10 @@ public class DisplayArithmeticControl implements ActionListener {
 		}
 		addTermIntoPanel(xCordinate, yCordinate, term);
 		//check for x and y coordinates bounds
-		if (xCordinate == 440 && yCordinate == 50) {
-			view.btnAddTerm.setEnabled(false);
-		}
+//		if (xCordinate == 440 && yCordinate == 50) {
+//			view.btnAddTerm.setEnabled(false);
+//		}
+		view.panelOfTerms.setPreferredSize(new Dimension(10, yCordinate));
 		lab1.validate();
 		lab1.repaint();
 	}
@@ -124,7 +127,7 @@ public class DisplayArithmeticControl implements ActionListener {
 			promptUserForAName();
 			return;
 		}
-		if (!(model.isInPolyLinkedList(polyName))) {
+		if (!(model.getHeadOfPolyLists().isInPolyLinkedList(polyName))) {
 			linkToHead();
 		} else {
 			promptUserForAnotherName();
@@ -208,23 +211,42 @@ public class DisplayArithmeticControl implements ActionListener {
 		PolyNameNode newPoly = new PolyNameNode();
 		newPoly.buildHeadTerm(lab1.primaryColor, lab1.secondaryColor);
 		newPoly.copy(temporaryPoly);
-		model.addPoly(newPoly);
+		model.getHeadOfPolyLists().addPoly(newPoly);
 	}
 	
 	
 	private void updateGUI() {
+		updatePanelOfTerms();
+		updatePanelOfPolies(model.getHeadOfPolyLists());
+		lab1.repaint();
+		lab1.validate();
+	}
+
+	private void updatePanelOfTerms() {
 		view.panelOfTerms.removeAll();
 		view.tfPolyName.setText("");
 		initiate();
-		lab1.repaint();
-		lab1.validate();
+	}
+	
+	private void updatePanelOfPolies(PolyNameNode poly) {
+		view.panelOfPoly.removeAll();
+		PolyNameNode currentPoly = poly.getDownPtr();
+		int yCordinate = 0;
+		while (currentPoly != poly) {
+			PanelOfTerm panelOfTerm = new PanelOfTerm(currentPoly, model);
+			view.panelOfPoly.add(panelOfTerm);
+			System.out.println(yCordinate);
+			yCordinate += panelOfTerm.getYCordinate();
+			currentPoly = currentPoly.getDownPtr();
+		}
+		view.panelOfPoly.setPreferredSize(new Dimension(830, yCordinate + 50));
 	}
 	
 	
 	
+	
+	
 
-	
-	
 	public void actionPerformed (ActionEvent ae) {
 		Object event = ae.getSource();
 		

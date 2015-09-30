@@ -26,6 +26,8 @@ import javax.swing.JLayeredPane;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
+import java.awt.Component;
 
 public class DisplayArithmeticView extends JPanel{
 	
@@ -37,8 +39,9 @@ public class DisplayArithmeticView extends JPanel{
 	
 	public QTextField tfPolyName, tfSearch;
 	public QButton btnAddTerm, btnAddPoly, btnLoad, btnSaveToDb;
-	public JPanel panelOfTerms;
+	public JPanel panelOfTerms, panelOfPoly;
 	public JLabel lblShowingProcess;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -62,10 +65,16 @@ public class DisplayArithmeticView extends JPanel{
 		add(tfPolyName);
 		tfPolyName.setColumns(10);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
+		scrollPane.setBounds(180, 28, 569, 85);
+		add(scrollPane);
+		
 		panelOfTerms = new JPanel();
-		panelOfTerms.setBounds(180, 28, 554, 85);
+		scrollPane.setViewportView(panelOfTerms);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panelOfTerms.setLayout(null);
-		add(panelOfTerms);
 		
 		btnAddTerm = new QButton("Add Term", lab1.primaryColor, lab1.secondaryColor);
 		btnAddTerm.setBounds(752, 44, 127, 20);
@@ -102,18 +111,19 @@ public class DisplayArithmeticView extends JPanel{
 		btnSaveToDb.setBounds(889, 348, 121, 20);
 		add(btnSaveToDb);
 		
-		JScrollPane displayScrollPane = new JScrollPane(new ScrollPanel());
-		displayScrollPane.setBounds(42, 142, 690, 158);
-		displayScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		JScrollPane displayScrollPane = new JScrollPane();
+		displayScrollPane.setBounds(42, 142, 837, 158);
+		displayScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		displayScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(displayScrollPane);
 		
-		JScrollPane deleteScrollPane = new JScrollPane(new ScrollPanel());
-		deleteScrollPane.setBounds(732, 142, 158, 158);
-		add(deleteScrollPane);
+		panelOfPoly = new JPanel();
+		panelOfPoly.setAlignmentY(Component.TOP_ALIGNMENT);
+		panelOfPoly.setAlignmentX(Component.LEFT_ALIGNMENT);
+		displayScrollPane.setViewportView(panelOfPoly);
+		panelOfPoly.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JScrollBar sBar1 = displayScrollPane.getVerticalScrollBar();
-		JScrollBar sBar2 = deleteScrollPane.getVerticalScrollBar();
-		sBar2.setModel(sBar1.getModel());
+//		JScrollBar sBar1 = displayScrollPane.getVerticalScrollBar();
 		
 		JLabel label = new JLabel("=");
 		label.setBounds(170, 43, 46, 14);

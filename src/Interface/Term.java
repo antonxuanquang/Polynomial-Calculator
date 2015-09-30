@@ -27,6 +27,13 @@ public class Term extends JPanel implements TermInterface {
 	public void addPlusLabel(boolean withoutPlus) {
 		plusLb.setVisible(withoutPlus);
 	}
+	
+	public void setTFsEnable(boolean enabled) {
+		coeffTF.setEnabled(enabled);
+		xTF.setEnabled(enabled);
+		yTF.setEnabled(enabled);
+		zTF.setEnabled(enabled);
+	}
 
 	private void buildUpPanel(Color primaryColor, Color secondaryColor) {
 		setLayout(null);
