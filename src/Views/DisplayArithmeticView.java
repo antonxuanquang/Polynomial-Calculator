@@ -132,11 +132,3 @@ public class DisplayArithmeticView extends JPanel{
 		
 	}
 }
-
-class ScrollPanel extends JPanel {
-	public ScrollPanel() {
-		setLayout(new GridLayout(50, 1));
-		for (int x = 0; x < 50; x++)
-			add(new JLabel("" + (x + 1), JLabel.CENTER));
-	}
-}
