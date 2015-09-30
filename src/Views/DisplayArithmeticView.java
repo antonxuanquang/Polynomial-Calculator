@@ -28,12 +28,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Component;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
 
 public class DisplayArithmeticView extends JPanel{
 	
 	public Lab1 lab1;
 	public Lab1Model model;
-	private DisplayArithmeticControl control;
+	public DisplayArithmeticControl control;
 	
 	private Term term;
 	
@@ -112,7 +118,8 @@ public class DisplayArithmeticView extends JPanel{
 		add(btnSaveToDb);
 		
 		JScrollPane displayScrollPane = new JScrollPane();
-		displayScrollPane.setBounds(42, 142, 837, 158);
+		displayScrollPane.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "List of Polynomials", TitledBorder.LEADING, TitledBorder.TOP, null, lab1.primaryColor));
+		displayScrollPane.setBounds(37, 143, 973, 185);
 		displayScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		displayScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(displayScrollPane);

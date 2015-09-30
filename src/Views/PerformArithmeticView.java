@@ -12,22 +12,21 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 import java.awt.FlowLayout;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 
 public class PerformArithmeticView extends JPanel {
 
-	private Lab1 lab1;
+	public Lab1 lab1;
 	public Lab1Model model;
-	private PerformArithmeticControl control;
-
-	private QTextField textField;
-	private QTextField textField_1;
-	private QTextField txtResult;
-	private QTextField textField_2;
+	public PerformArithmeticControl control;
 	
-	
+	public JComboBox firstOperand, operator, secondOperand;
+	public QButton btnSave;
+	public JPanel panelOfFirstTerm, panelOfSecondTerm, panelResultTerm;
 
-	/**
+	 /**
 	 * Create the panel.
 	 */
 	public PerformArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
@@ -35,52 +34,38 @@ public class PerformArithmeticView extends JPanel {
 		model = fromModel;
 		control = new PerformArithmeticControl(this);
 		
+		buildUpGUI();		
+		control.setActionListeners();
+	}
+	
+	private void buildUpGUI() {
 		setLayout(null);
 		
-		JComboBox firstOperand = new JComboBox();
-		firstOperand.setBounds(79, 30, 105, 20);
+		firstOperand = new JComboBox();
+		firstOperand.setBounds(79, 30, 159, 20);
+		firstOperand.setForeground(lab1.primaryColor);
+		firstOperand.addItem("**Choose a polynomial");
 		add(firstOperand);
 		
-		JComboBox operator = new JComboBox();
-		operator.setBounds(317, 30, 53, 20);
+		operator = new JComboBox();
+		operator.setBounds(261, 30, 153, 20);
+		operator.setForeground(lab1.primaryColor);
+		operator.addItem("**Choose an operator");
+		operator.addItem("+");
+		operator.addItem("-");
+		operator.addItem("*");
+		operator.setEnabled(false);
 		add(operator);
 		
-		JComboBox secondOperand = new JComboBox();
-		secondOperand.setBounds(492, 30, 105, 20);
+		secondOperand = new JComboBox();
+		secondOperand.setBounds(438, 30, 159, 20);
+		secondOperand.setForeground(lab1.primaryColor);
+		secondOperand.addItem("**Choose a polynomial");
+		secondOperand.setEnabled(false);
 		add(secondOperand);
 		
-		JLabel lblFirstoperand = new JLabel("First Operand");
-		lblFirstoperand.setBounds(79, 89, 105, 14);
-		lblFirstoperand.setForeground(lab1.primaryColor);
-		add(lblFirstoperand);
-		
-		JLabel lblSecondOperand = new JLabel("Second Operand");
-		lblSecondOperand.setBounds(79, 124, 105, 14);
-		lblSecondOperand.setForeground(lab1.primaryColor);
-		add(lblSecondOperand);
-		
-		JLabel label = new JLabel("=");
-		label.setBounds(195, 89, 46, 14);
-		label.setForeground(lab1.primaryColor);
-		add(label);
-		
-		JLabel label_1 = new JLabel("=");
-		label_1.setBounds(195, 124, 46, 14);
-		label_1.setForeground(lab1.primaryColor);
-		add(label_1);
-		
-		textField = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField.setBounds(228, 86, 369, 20);
-		add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_1.setBounds(228, 121, 369, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
-		
 		JPanel panel = new JPanel();
-		panel.setBounds(79, 174, 518, 20);
+		panel.setBounds(10, 293, 587, 20);
 		add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -88,25 +73,35 @@ public class PerformArithmeticView extends JPanel {
 		lblLabelToShow.setForeground(lab1.primaryColor);
 		panel.add(lblLabelToShow);
 		
-		txtResult = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		txtResult.setText("Result");
-		txtResult.setBounds(79, 226, 105, 20);
-		add(txtResult);
-		txtResult.setColumns(10);
+		btnSave = new QButton("Save", lab1.primaryColor, lab1.secondaryColor);
+		btnSave.setBounds(617, 293, 105, 20);
+		add(btnSave);
 		
-		JLabel label_2 = new JLabel("=");
-		label_2.setBounds(195, 228, 46, 14);
-		label_2.setForeground(lab1.primaryColor);
-		add(label_2);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
+		scrollPane.setBounds(57, 64, 665, 66);
+		add(scrollPane);
 		
-		textField_2 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_2.setBounds(228, 226, 369, 20);
-		add(textField_2);
-		textField_2.setColumns(10);
+		panelOfFirstTerm = new JPanel();
+		scrollPane.setViewportView(panelOfFirstTerm);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		QButton btnNewButton = new QButton("Save", lab1.primaryColor, lab1.secondaryColor);
-		btnNewButton.setBounds(618, 226, 105, 20);
-		add(btnNewButton);
-
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBorder(null);
+		scrollPane_1.setBounds(57, 135, 665, 66);
+		add(scrollPane_1);
+		
+		panelOfSecondTerm = new JPanel();
+		scrollPane_1.setViewportView(panelOfSecondTerm);
+		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBorder(null);
+		scrollPane_2.setBounds(57, 206, 665, 84);
+		add(scrollPane_2);
+		
+		panelResultTerm = new JPanel();
+		scrollPane_2.setViewportView(panelResultTerm);
+		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 }

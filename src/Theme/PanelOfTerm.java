@@ -23,6 +23,7 @@ public class PanelOfTerm extends JPanel {
 	private DisplayArithmeticControl control;
 	private JLabel lblPolyName;
 	private int xCordinate, yCordinate = 0;
+	private QButton btnRemove;
 	
 	private Color primaryColor, secondaryColor;
 	
@@ -55,15 +56,17 @@ public class PanelOfTerm extends JPanel {
 		label.setForeground(primaryColor);
 		add(label);
 		
-		QButton btnNewButton = new QButton("Remove", primaryColor, secondaryColor);
-		btnNewButton.addActionListener(new ActionListener() {
+		btnRemove = new QButton("Remove", primaryColor, secondaryColor);
+		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				model.getHeadOfPolyLists().removeByName(lblPolyName.getText());
 				control.updatePanelOfPolies(model.getHeadOfPolyLists());
+				control.getView().tfSearch.setText("");
+				control.view.lab1.performView.control.updateJComboBox(model.getHeadOfPolyLists());
 			}
 		});
-		btnNewButton.setBounds(700, 21, 89, 23);
-		add(btnNewButton);
+		btnRemove.setBounds(700, 21, 89, 23);
+		add(btnRemove);
 	}
 	
 	private void buildTerms(PolyNameNode poly) {
@@ -79,7 +82,6 @@ public class PanelOfTerm extends JPanel {
 			currentTerm.setTFsEnable(false);
 			addTermIntoPanel(xCordinate, yCordinate + 10, currentTerm);
 			currentTerm = currentTerm.getPtr();
-			System.out.println(yCordinate);
 		}
 		setPreferredSize(new Dimension(830, getYCordinate()));
 	}
@@ -88,6 +90,10 @@ public class PanelOfTerm extends JPanel {
 		term.setBounds(xCordinate, yCordinate, 110, 32);
 		this.add(term);
 		term.setLayout(null);
+	}
+	
+	public void removeDeleteBtn() {
+		remove(btnRemove);
 	}
 	
 	public int getYCordinate() {

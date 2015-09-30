@@ -15,7 +15,7 @@ import Views.DisplayArithmeticView;
 
 public class DisplayArithmeticControl implements ActionListener {
 
-	private DisplayArithmeticView view;
+	public DisplayArithmeticView view;
 	private Lab1Model model;
 	private Lab1 lab1;
 
@@ -111,8 +111,8 @@ public class DisplayArithmeticControl implements ActionListener {
 		// view.btnAddTerm.setEnabled(false);
 		// }
 		view.panelOfTerms.setPreferredSize(new Dimension(10, yCordinate + 50));
-		lab1.validate();
-		lab1.repaint();
+		lab1.displayView.validate();
+		lab1.displayView.repaint();
 	}
 
 	private void addTermIntoPanel(int xCordinate, int yCordinate, Term term) {
@@ -220,6 +220,7 @@ public class DisplayArithmeticControl implements ActionListener {
 	private void updateGUI() {
 		updatePanelOfTerms();
 		updatePanelOfPolies(model.getHeadOfPolyLists());
+		lab1.performView.control.updateJComboBox(model.getHeadOfPolyLists());
 	}
 
 	private void updatePanelOfTerms() {
@@ -236,13 +237,12 @@ public class DisplayArithmeticControl implements ActionListener {
 		while (currentPoly != poly) {
 			PanelOfTerm panelOfTerm = new PanelOfTerm(currentPoly, this);
 			view.panelOfPoly.add(panelOfTerm);
-			System.out.println(yCordinate);
 			yCordinate += panelOfTerm.getYCordinate();
 			currentPoly = currentPoly.getDownPtr();
 		}
 		view.panelOfPoly.setPreferredSize(new Dimension(830, yCordinate + 50));
-		lab1.repaint();
-		lab1.validate();
+		lab1.displayView.repaint();
+		lab1.displayView.validate();
 	}
 
 	
@@ -267,16 +267,21 @@ public class DisplayArithmeticControl implements ActionListener {
 			if (currentPoly.getPolyName().contains(text)) {
 				PolyNameNode temp = new PolyNameNode();
 				temp.buildHeadTerm(lab1.primaryColor, lab1.secondaryColor);
-				System.out.println(currentPoly);
 				temp.copy(currentPoly);
 				result.addPoly(temp);
 			}
 			currentPoly = currentPoly.getDownPtr();
 		}
-		
 		return result;
 	}
 
+	
+	
+	// Events and set up Listeners
+	public DisplayArithmeticView getView() {
+		return view;
+	}
+	
 	public Lab1Model getModel() {
 		return model;
 	}

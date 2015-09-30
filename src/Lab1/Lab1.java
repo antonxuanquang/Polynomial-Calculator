@@ -19,8 +19,8 @@ import java.awt.SystemColor;
 
 public class Lab1 extends JFrame {
 	
-	DisplayArithmeticView displayView;
-	PerformArithmeticView performView;
+	public DisplayArithmeticView displayView;
+	public PerformArithmeticView performView;
 	ViewController controllerView;
 	EvaluateArithmeticView evaluateView;
 	Lab1Model model = new Lab1Model();
@@ -65,7 +65,7 @@ public class Lab1 extends JFrame {
 		} catch (NullPointerException exp) {}
 		performView = new PerformArithmeticView(this, model);
 		performView.setBorder(new LineBorder(primaryColor, 4, true));
-		performView.setBounds(279, 386, 785, 315);
+		performView.setBounds(207, 386, 857, 368);
 		contentPane.add(performView);
 		validate();
 		repaint();
@@ -75,7 +75,7 @@ public class Lab1 extends JFrame {
 		remove(performView);
 		evaluateView = new EvaluateArithmeticView(this, model);
 		evaluateView.setBorder(new LineBorder(primaryColor, 4, true));
-		evaluateView.setBounds(279, 386, 785, 315);
+		evaluateView.setBounds(207, 386, 857, 368);
 		contentPane.add(evaluateView);
 		validate();
 		repaint();
@@ -83,13 +83,13 @@ public class Lab1 extends JFrame {
 	
 	private void setUpViewConroller() {
 		controllerView = new ViewController(this);
-		controllerView.setBounds(-4, 391, 283, 325);
+		controllerView.setBounds(-4, 391, 212, 363);
 		contentPane.add(controllerView);
 	}
 
 	private void setUpJFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1026, 702);
+		setBounds(100, 100, 1026, 763);
 		setVisible(true);
 		setResizable(false);
 		contentPane = new JPanel();

@@ -30,7 +30,7 @@ public class ViewController extends JPanel {
 				btnAvaluateArithmetic.setEnabled(true);
 			}
 		});
-		btnPerformArithmetic.setBounds(71, 71, 154, 50);
+		btnPerformArithmetic.setBounds(30, 104, 154, 50);
 		btnPerformArithmetic.setEnabled(false);
 		add(btnPerformArithmetic);
 		
@@ -42,7 +42,7 @@ public class ViewController extends JPanel {
 				btnAvaluateArithmetic.setEnabled(false);
 			}
 		});
-		btnAvaluateArithmetic.setBounds(71, 150, 154, 50);
+		btnAvaluateArithmetic.setBounds(30, 183, 154, 50);
 		add(btnAvaluateArithmetic);
 	}
 }
