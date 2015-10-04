@@ -84,7 +84,10 @@ public class EvaluateArithmeticControl implements ActionListener {
 			enableTFs(true);
 			view.lblResult.setText("Please input value for x, y, and z");
 		} else {
-//			lab1.setUpEvaluatePolynomialView();
+			view.panelOfEvaluatingPoly.removeAll();
+			enableTFs(false);
+			view.btnEvaluate.setEnabled(false);
+			view.lblResult.setText("");
 		}
 	}
 

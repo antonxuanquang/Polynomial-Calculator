@@ -161,6 +161,8 @@ public class PerformArithmeticControl implements ActionListener {
 		resultPoly.setPolyName(resultPanel.getPolyName());
 		if (model.getHeadOfPolyLists().isInPolyLinkedList(resultPoly.getPolyName())) {
 			promptUserForAnotherName();
+		} else if (resultPanel.getPolyName().equals("")) {
+			view.lblShowingProcess.setText("Please provide a name for Polynomial");
 		} else {
 			model.getHeadOfPolyLists().addPoly(resultPoly);
 			displayView.control.updatePanelOfPolies(model.getHeadOfPolyLists());
@@ -170,7 +172,6 @@ public class PerformArithmeticControl implements ActionListener {
 	}
 	
 	private void promptUserForAnotherName() {
-		System.out.println(resultPanel.getPolyName());
 		view.lblShowingProcess.setText("'" + resultPanel.getPolyName() + "' is "
 				+ "already in the polynomial lists. Please choose another name ");
 		resultPanel.setPolyName("");

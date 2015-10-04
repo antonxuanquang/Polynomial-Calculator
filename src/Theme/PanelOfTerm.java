@@ -96,7 +96,7 @@ public class PanelOfTerm extends JPanel {
 				currentTerm = currentTerm.getPtr();
 			}
 		}
-		setPreferredSize(new Dimension(830, 50));
+		setPreferredSize(new Dimension(830, getYCordinate()));
 	}
 	
 	private void addTermIntoPanel (int xCordinate, int yCordinate, Term term) {
@@ -110,7 +110,7 @@ public class PanelOfTerm extends JPanel {
 	}
 	
 	public int getYCordinate() {
-		return yCordinate + 53;
+		return yCordinate + 56;
 	}
 	
 	public void replaceLblNameAsTextField() {
