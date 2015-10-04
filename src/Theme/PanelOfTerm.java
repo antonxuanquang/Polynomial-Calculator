@@ -64,6 +64,9 @@ public class PanelOfTerm extends JPanel {
 				control.updatePanelOfPolies(model.getHeadOfPolyLists());
 				control.getView().tfSearch.setText("");
 				control.view.lab1.performView.control.updateJComboBox(model.getHeadOfPolyLists());
+				try {
+					control.view.lab1.evaluateView.control.updateJComboBox(model.getHeadOfPolyLists());
+				} catch (NullPointerException e) {}
 			}
 		});
 		btnRemove.setBounds(700, 21, 89, 23);

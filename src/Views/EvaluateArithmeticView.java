@@ -16,15 +16,20 @@ import javax.swing.JComboBox;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class EvaluateArithmeticView extends JPanel {
 	
-	private Lab1 lab1;
+	public Lab1 lab1;
 	public Lab1Model model;
-	private EvaluateArithmeticControl control;
+	public EvaluateArithmeticControl control;
 	
-	private QTextField textField, textField_1, textField_2, textField_3;
-	
+	public QTextField xTF, yTF, zTF;
+	public JComboBox cbPolynomials;
+	public JLabel lblResult;
+	public JPanel panelOfEvaluatingPoly;
+	public QButton btnEvaluate;
 	
 	
 
@@ -34,8 +39,14 @@ public class EvaluateArithmeticView extends JPanel {
 	public EvaluateArithmeticView(Lab1 fromLab1, Lab1Model fromModel) {
 		lab1 = fromLab1;
 		model = fromModel;
-		control = new EvaluateArithmeticControl(this);
 		
+		buildUpGUI();
+		
+		control = new EvaluateArithmeticControl(this);
+		control.setUpListener();
+	}
+	
+	private void buildUpGUI() {
 		setLayout(null);
 		
 		JLabel lblPolynomialName = new JLabel("Polynomial Name");
@@ -78,62 +89,46 @@ public class EvaluateArithmeticView extends JPanel {
 		label_3.setForeground(lab1.primaryColor);
 		add(label_3);
 		
-		textField = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField.setBounds(216, 75, 122, 20);
-		add(textField);
-		textField.setColumns(10);
+		xTF = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		xTF.setBounds(216, 75, 41, 20);
+		add(xTF);
+		xTF.setColumns(10);
 		
-		textField_1 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_1.setColumns(10);
-		textField_1.setBounds(216, 100, 122, 20);
-		add(textField_1);
+		yTF = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		yTF.setColumns(10);
+		yTF.setBounds(216, 100, 41, 20);
+		add(yTF);
 		
-		textField_2 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_2.setColumns(10);
-		textField_2.setBounds(216, 125, 122, 20);
-		add(textField_2);
+		zTF = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		zTF.setColumns(10);
+		zTF.setBounds(216, 125, 41, 20);
+		add(zTF);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(216, 54, 122, 17);
-		add(comboBox);
+		cbPolynomials = new JComboBox();
+		cbPolynomials.setBounds(216, 54, 157, 17);
+		add(cbPolynomials);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(84, 202, 583, 24);
-		add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel lblShowSomeResult = new JLabel("Show some result here");
-		lblShowSomeResult.setForeground(lab1.primaryColor);
-		panel.add(lblShowSomeResult);
-		
-		JLabel lblResult = new JLabel("Result");
-		lblResult.setForeground(lab1.primaryColor);
-		lblResult.setBounds(66, 253, 60, 14);
-		add(lblResult);
-		
-		JLabel label_4 = new JLabel("=");
-		label_4.setBounds(179, 253, 46, 14);
-		label_4.setForeground(lab1.primaryColor);
-		add(label_4);
-		
-		textField_3 = new QTextField(lab1.primaryColor, lab1.secondaryColor);
-		textField_3.setColumns(10);
-		textField_3.setBounds(216, 250, 410, 20);
-		add(textField_3);
-		
-		QButton btnNewButton = new QButton("Evaluate", lab1.primaryColor, lab1.secondaryColor);
-		btnNewButton.setBounds(216, 153, 122, 23);
-		add(btnNewButton);
+		btnEvaluate = new QButton("Evaluate", lab1.primaryColor, lab1.secondaryColor);
+		btnEvaluate.setBounds(216, 153, 157, 23);
+		btnEvaluate.setEnabled(false);
+		add(btnEvaluate);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(378, 89, 368, 31);
 		add(panel_1);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblChosenPolynomialGoes = new JLabel("Chosen Polynomial goes here");
-		lblChosenPolynomialGoes.setForeground(lab1.primaryColor);
-		panel_1.add(lblChosenPolynomialGoes);
-
+		lblResult = new JLabel("");
+		lblResult.setForeground(lab1.primaryColor);
+		panel_1.add(lblResult);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
+		scrollPane.setBounds(66, 199, 680, 130);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		add(scrollPane);
+		
+		panelOfEvaluatingPoly = new JPanel();
+		scrollPane.setViewportView(panelOfEvaluatingPoly);
 	}
-
 }

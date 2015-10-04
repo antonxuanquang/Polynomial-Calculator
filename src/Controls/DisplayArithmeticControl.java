@@ -221,6 +221,9 @@ public class DisplayArithmeticControl implements ActionListener {
 		updatePanelOfTerms();
 		updatePanelOfPolies(model.getHeadOfPolyLists());
 		lab1.performView.control.updateJComboBox(model.getHeadOfPolyLists());
+		try {
+			lab1.evaluateView.control.updateJComboBox(model.getHeadOfPolyLists());
+		} catch (NullPointerException e) {}
 	}
 
 	private void updatePanelOfTerms() {

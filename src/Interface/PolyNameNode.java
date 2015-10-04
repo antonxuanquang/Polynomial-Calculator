@@ -193,11 +193,36 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		}
 		return result;
 	}
-
+	
 	public PolyNameNode subtract(PolyNameNode poly) {
+		// TODO Auto-generated method stub
 		PolyNameNode result = new PolyNameNode();
 		result.buildHeadTerm(getFirstTerm().primaryColor, getFirstTerm().secondaryColor);
-		
+		Term termP = this.getFirstTerm();
+		Term termQ = poly.getFirstTerm();
+		while (termP != this.getRightPtr() && termQ != poly.getRightPtr()) {
+			Term term = new Term(termP.primaryColor, termP.secondaryColor);
+			if (termP.isEqualPowersTo(termQ)) {
+				term.copy(termQ);
+				int sumCoeff = termP.getCoeff() - termQ.getCoeff();
+				term.setCoeff(sumCoeff);
+				if (sumCoeff != 0) {
+					result.addTerm(term);
+				}
+				termP = termP.getPtr();
+				termQ = termQ.getPtr();
+			} else {
+				if (termP.isHavingLessPower(termQ)) {
+					term.copy(termQ);
+					result.addTerm(term);
+					termQ = termQ.getPtr();
+				} else {
+					term.copy(termP);
+					result.addTerm(term);
+					termP = termP.getPtr();
+				}
+			}
+		}
 		return result;
 	}
 

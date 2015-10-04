@@ -36,24 +36,23 @@ public class PerformArithmeticControl implements ActionListener {
 	public void updateJComboBox(PolyNameNode polyLinkedList) {
 		String first = "" + view.firstOperand.getSelectedItem();
 		String second = "" + view.secondOperand.getSelectedItem();
-		resetJComboBox();
+		resetJComboBox(view.firstOperand);
+		resetJComboBox(view.secondOperand);
 		PolyNameNode currentPoly = polyLinkedList.getDownPtr();
 		while (currentPoly != polyLinkedList) {
 			view.firstOperand.addItem(currentPoly.getPolyName());
 			view.secondOperand.addItem(currentPoly.getPolyName());
 			currentPoly = currentPoly.getDownPtr();
 		}
-		manipulateJComboBox(first, second);
+		manipulateJComboBoxAndPanelsOfTerms(first, second);
 	}
 	
-	private void resetJComboBox() {
-		view.firstOperand.removeAllItems();
-		view.secondOperand.removeAllItems();
-		view.firstOperand.addItem("**Choose a polynomial");
-		view.secondOperand.addItem("**Choose a polynomial");
+	private void resetJComboBox(JComboBox jcb) {
+		jcb.removeAllItems();
+		jcb.addItem("**Choose a polynomial");
 	}
 	
-	private void manipulateJComboBox(String first, String second) {
+	private void manipulateJComboBoxAndPanelsOfTerms(String first, String second) {
 		if (isInJComboBox(view.firstOperand, first)) {
 			view.firstOperand.setSelectedItem(first);
 		} else {
@@ -71,6 +70,7 @@ public class PerformArithmeticControl implements ActionListener {
 			view.secondOperand.setSelectedIndex(0);
 			view.operator.setEnabled(false);
 		}
+		view.panelResultTerm.removeAll();
 	}
 
 	private boolean isInJComboBox(JComboBox combo, String name) {
@@ -92,6 +92,7 @@ public class PerformArithmeticControl implements ActionListener {
 			firstOperand = selectOperand(model.getHeadOfPolyLists(),
 					"" + view.firstOperand.getSelectedItem());
 			displayOperand(firstOperand, view.panelOfFirstTerm);
+			view.lblShowingProcess.setText("Please choose second operand");
 		} else {
 			return;
 		}
@@ -103,27 +104,29 @@ public class PerformArithmeticControl implements ActionListener {
 			secondOperand = selectOperand(model.getHeadOfPolyLists(),
 					"" + view.secondOperand.getSelectedItem());
 			displayOperand(secondOperand, view.panelOfSecondTerm);
+			view.lblShowingProcess.setText("Please choose an operator");
 		} else {
 			return;
 		}
 	}
 	
-	private PanelOfTerm  displayOperand(PolyNameNode operand, JPanel panel) {
+	public PanelOfTerm  displayOperand(PolyNameNode operand, JPanel panel) {
 		panel.removeAll();
 		PanelOfTerm firstPanel = new PanelOfTerm(operand, displayView.control);
 		firstPanel.removeDeleteBtn();
 		firstPanel.setPreferredSize(new Dimension (800, firstPanel.getYCordinate()));
 		panel.add(firstPanel);
-		lab1.performView.repaint();
-		lab1.performView.validate();
+		lab1.panel_1.repaint();
+		lab1.panel_1.validate();
 		return firstPanel;
 	}
 	
-	private PolyNameNode selectOperand(PolyNameNode polyLinkedList, String name) {
+	public PolyNameNode selectOperand(PolyNameNode polyLinkedList, String name) {
 		PolyNameNode currentPoly = polyLinkedList.getDownPtr();
 		while (currentPoly != polyLinkedList) {
 			if (currentPoly.getPolyName().equals(name)) {
 				PolyNameNode temp = new PolyNameNode();
+				temp.setPolyName(currentPoly.getPolyName());
 				temp.buildHeadTerm(lab1.primaryColor, lab1.secondaryColor);
 				temp.copy(currentPoly);
 				return temp;
@@ -186,5 +189,4 @@ public class PerformArithmeticControl implements ActionListener {
 		view.secondOperand.addActionListener(this);
 		view.btnSave.addActionListener(this);
 	}
-
 }

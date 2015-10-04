@@ -22,7 +22,7 @@ public class Lab1 extends JFrame {
 	public DisplayArithmeticView displayView;
 	public PerformArithmeticView performView;
 	ViewController controllerView;
-	EvaluateArithmeticView evaluateView;
+	public EvaluateArithmeticView evaluateView;
 	Lab1Model model = new Lab1Model();
 	private JPanel contentPane;
 	
@@ -30,7 +30,7 @@ public class Lab1 extends JFrame {
 			minorColor  = new Color(105, 150, 156),
 			primaryColor = new Color(66, 122, 130);
 	private JPanel panel;
-	private JPanel panel_1;
+	public JPanel panel_1;
 	private JPanel panel_2;
 	
 
@@ -46,6 +46,7 @@ public class Lab1 extends JFrame {
 	 */
 	public Lab1() {
 		setInitialGUI();
+		setBounds(100, 100, 1026, 763);
 	}
 	
 	private void setInitialGUI() {
@@ -69,7 +70,7 @@ public class Lab1 extends JFrame {
 	public void setUpPerformPolynomialView() {
 		panel_1.removeAll();
 		performView = new PerformArithmeticView(this, model);
-		performView.setBounds(0, 0, 857, 368);
+		performView.setBounds(0, 0, 857, 365);
 		panel_1.add(performView);
 		performView.setBorder(new LineBorder(primaryColor, 4, true));
 		validate();
@@ -79,9 +80,9 @@ public class Lab1 extends JFrame {
 	public void setUpEvaluatePolynomialView() {
 		panel_1.removeAll();
 		evaluateView = new EvaluateArithmeticView(this, model);
-		evaluateView.setBorder(new LineBorder(primaryColor, 4, true));
-		evaluateView.setBounds(207, 386, 857, 368);
+		evaluateView.setBounds(0, 0, 857, 365);
 		panel_1.add(evaluateView);
+		evaluateView.setBorder(new LineBorder(primaryColor, 4, true));
 		validate();
 		repaint();
 	}
@@ -94,7 +95,6 @@ public class Lab1 extends JFrame {
 
 	private void setUpJFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1026, 763);
 		setVisible(true);
 		setResizable(false);
 		
@@ -104,7 +104,7 @@ public class Lab1 extends JFrame {
 		contentPane.setLayout(null);
 
 		panel_1 = new JPanel();
-		panel_1.setBounds(207, 386, 857, 368);
+		panel_1.setBounds(207, 387, 857, 368);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		

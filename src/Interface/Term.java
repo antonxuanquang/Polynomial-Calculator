@@ -13,6 +13,7 @@ public class Term extends JPanel implements TermInterface {
 	private JLabel plusLb;
 	public Color primaryColor, secondaryColor;
 	private Term ptr;
+	private int coeff, x, y, z;
 
 	/**
 	 * Create the panel.
@@ -81,57 +82,65 @@ public class Term extends JPanel implements TermInterface {
 	
 	public int getCoeff() {
 		if (coeffTF.getText().equals(null)) {
-			setCoeff(0);
-			return 0;
+			coeff = 0;
+			setCoeff(coeff);
+			return coeff;
 		}
-		return Integer.parseInt(coeffTF.getText());
+		return coeff;
 	}
 
 	public void setCoeff(int c) {
+		coeff = c;
 		coeffTF.setText("" + c);
 	}
 
 	public int getXPower() {
 		if (xTF.getText().equals(null)) {
-			setXPower(0);
-			return 0;
+			x = 0;
+			setCoeff(x);
+			return x;
 		}
-		return Integer.parseInt(xTF.getText());
+		return x;
 	}
 
 	public void setXPower(int ix) {
+		x = ix;
 		xTF.setText("" + ix);
 	}
 
 	public int getYPower() {
 		if (yTF.getText().equals(null)) {
-			setYPower(0);
-			return 0;
+			y = 0;
+			setCoeff(y);
+			return y;
 		}
-		return Integer.parseInt(yTF.getText());
+		return y;
 	}
 
 	public void setYPower(int iy) {
+		y = iy;
 		yTF.setText("" + iy);
 	}
 
 	public int getZPower() {
 		if (zTF.getText().equals(null)) {
-			setZPower(0);
-			return 0;
+			z = 0;
+			setCoeff(z);
+			return z;
 		}
-		return Integer.parseInt(zTF.getText());
+		return z;
 	}
 
 	public void setZPower(int iz) {
+		z = iz;
 		zTF.setText("" + iz);
 	}
 	
 	public void setCoeffAndXYZ (int coeff, int x, int y, int z) {
-		coeffTF.setText("" + coeff);
-		xTF.setText("" + x);
-		yTF.setText("" + y);
-		zTF.setText("" + z);
+		setCoeff(coeff);;
+		setXPower(x);
+		setYPower(y);
+		setZPower(z);
 	}
 
 	public Term getPtr() {
@@ -171,6 +180,15 @@ public class Term extends JPanel implements TermInterface {
 		this.setXPower(term.getXPower());
 		this.setYPower(term.getYPower());
 		this.setZPower(term.getZPower());
+	}
+	
+	public double evaluate(double x, double y, double z) {
+		double result;
+		result = getCoeff() 
+				* Math.pow(x, getXPower()) 
+				* Math.pow(y, getYPower()) 
+				* Math.pow(z, getZPower());
+		return result;
 	}
 	
 	@Override
