@@ -74,9 +74,10 @@ public class PanelOfTerm extends JPanel {
 	
 	private void buildTerms(PolyNameNode poly) {
 		if (poly.isHavingNoTerm()) {
+			System.out.println("test");
 			JLabel zero = new JLabel("0");
 			zero.setForeground(primaryColor);
-			zero.setBounds(110, 110, 50, 50);
+			zero.setBounds(130, 21, 89, 23);
 			add(zero);
 		} else {
 			Term currentTerm = poly.getFirstTerm();
@@ -92,8 +93,8 @@ public class PanelOfTerm extends JPanel {
 				addTermIntoPanel(xCordinate, yCordinate + 10, currentTerm);
 				currentTerm = currentTerm.getPtr();
 			}
-			setPreferredSize(new Dimension(830, getYCordinate()));
 		}
+		setPreferredSize(new Dimension(830, getYCordinate()));
 	}
 	
 	private void addTermIntoPanel (int xCordinate, int yCordinate, Term term) {
