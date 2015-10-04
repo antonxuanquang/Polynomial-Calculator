@@ -7,6 +7,8 @@ import Theme.QTextField;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Term extends JPanel implements TermInterface {
 	private QTextField coeffTF, xTF, yTF, zTF;
@@ -40,6 +42,12 @@ public class Term extends JPanel implements TermInterface {
 		setLayout(null);
 		
 		coeffTF = new QTextField(primaryColor, secondaryColor);
+		coeffTF.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				System.out.println(coeffTF.getText());
+			}
+		});
 		coeffTF.setBounds(10, 11, 28, 20);
 		add(coeffTF);
 		coeffTF.setColumns(10);
@@ -81,12 +89,13 @@ public class Term extends JPanel implements TermInterface {
 	}
 	
 	public int getCoeff() {
-		if (coeffTF.getText().equals(null)) {
-			coeff = 0;
+		if (coeffTF.getText().equals("")) {
 			setCoeff(coeff);
 			return coeff;
+		} else {
+			coeff = Integer.parseInt(coeffTF.getText());
+			return coeff;
 		}
-		return coeff;
 	}
 
 	public void setCoeff(int c) {
@@ -95,12 +104,13 @@ public class Term extends JPanel implements TermInterface {
 	}
 
 	public int getXPower() {
-		if (xTF.getText().equals(null)) {
-			x = 0;
-			setCoeff(x);
+		if (xTF.getText().equals("")) {
+			setXPower(x);
+			return x;
+		} else {
+			x = Integer.parseInt(xTF.getText());
 			return x;
 		}
-		return x;
 	}
 
 	public void setXPower(int ix) {
@@ -109,12 +119,13 @@ public class Term extends JPanel implements TermInterface {
 	}
 
 	public int getYPower() {
-		if (yTF.getText().equals(null)) {
-			y = 0;
-			setCoeff(y);
+		if (yTF.getText().equals("")) {
+			setYPower(y);
+			return y;
+		} else {
+			y = Integer.parseInt(yTF.getText());
 			return y;
 		}
-		return y;
 	}
 
 	public void setYPower(int iy) {
@@ -123,12 +134,13 @@ public class Term extends JPanel implements TermInterface {
 	}
 
 	public int getZPower() {
-		if (zTF.getText().equals(null)) {
-			z = 0;
-			setCoeff(z);
+		if (zTF.getText().equals("")) {
+			setZPower(z);
+			return z;
+		} else {
+			z = Integer.parseInt(zTF.getText());
 			return z;
 		}
-		return z;
 	}
 
 	public void setZPower(int iz) {

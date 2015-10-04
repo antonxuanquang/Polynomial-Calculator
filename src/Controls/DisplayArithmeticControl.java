@@ -51,44 +51,15 @@ public class DisplayArithmeticControl implements ActionListener {
 		firstTerm.addPlusLabel(false);
 		addTermIntoPanel(0, 0, firstTerm);
 		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, firstTerm);
-
-		// delete later
-		firstTerm.setCoeffAndXYZ(4, 4, 5, 6);
-		view.tfPolyName.setText("abc");
 	}
 
 	
 	
 	// add a term button
 	private void addTerm() {
-		// Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
-		// currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, term);
-		// addTermInGUI(term);
-
-		Term secondTerm = new Term(lab1.primaryColor, lab1.secondaryColor);
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, secondTerm);
-		secondTerm.setCoeffAndXYZ(4, 5, 6, 7);
-		addTermInGUI(secondTerm);
-
-		Term third = new Term(lab1.primaryColor, lab1.secondaryColor);
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, third);
-		third.setCoeffAndXYZ(4, 6, 7, 8);
-		addTermInGUI(third);
-
-		Term fourth = new Term(lab1.primaryColor, lab1.secondaryColor);
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, fourth);
-		fourth.setCoeffAndXYZ(4, 7, 8, 9);
-		addTermInGUI(fourth);
-
-		Term fifth = new Term(lab1.primaryColor, lab1.secondaryColor);
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, fifth);
-		fifth.setCoeffAndXYZ(5, 5, 6, 7);
-		addTermInGUI(fifth);
-
-		Term sixth = new Term(lab1.primaryColor, lab1.secondaryColor);
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, sixth);
-		sixth.setCoeffAndXYZ(4, 4, 5, 6);
-		addTermInGUI(sixth);
+		 Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
+		 currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, term);
+		 addTermInGUI(term);
 	}
 
 	private Term addTermInTemporaryPolyAndSetPointer(Term currentTerm, Term nextTerm) {
@@ -141,8 +112,14 @@ public class DisplayArithmeticControl implements ActionListener {
 			addNewPolyToModel();
 			updateGUI();
 		} else {
+			System.out.println("test");
+			promptUserForValidInput();
 			return;
 		}
+	}
+
+	private void promptUserForValidInput() {
+		view.lblShowingProcess.setText("Please provide valid inputs");
 	}
 
 	private void promptUserForAName() {

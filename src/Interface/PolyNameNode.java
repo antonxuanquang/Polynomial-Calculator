@@ -9,13 +9,16 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	private String name;
 	private PolyNameNode downPointer;
 	private Term rightPointer;
-	
+
+	//constructors
 	public PolyNameNode() {}
 	
 	public PolyNameNode(String name) {
 		this.name = name;
 	}
 	
+	
+	//interface
 	public String getPolyName() {
 		return name;
 	}
@@ -40,6 +43,8 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		rightPointer = p;
 	}
 	
+	
+	//for poly
 	public void buildHeadTerm(Color primaryColor, Color secondaryColor) {
 		rightPointer = new Term(primaryColor, secondaryColor);
 		this.setRightPtr(rightPointer);
@@ -48,8 +53,10 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		rightPointer.setPtr(rightPointer);
 	}
 	
-	public boolean isEmpty() {
-		return downPointer == this || downPointer == null;
+	public boolean isHavingNoTerm() {
+//		System.out.println(getFirstTerm());
+//		System.out.println(rightPointer);
+		return getFirstTerm() == rightPointer;
 	}
 	
 	public Term getFirstTerm() {
@@ -76,6 +83,9 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	}
 	
 	public void addTerm (Term term) {
+		if (term.getCoeff() == 0) {
+			return;
+		}
 		if (getFirstTerm() == rightPointer) {
 			term.setPtr(rightPointer);
 			rightPointer.setPtr(term);
@@ -111,6 +121,12 @@ public class PolyNameNode implements PolyNameNodeInterface{
 			currentTerm = currentTerm.getPtr();
 		}
 	}
+
+	
+	//for poly links
+	public boolean isEmpty() {
+		return downPointer == this || downPointer == null;
+	}
 	
 	public PolyNameNode getHeadOfPolyLists() {
 		return this;
@@ -127,15 +143,15 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		return false;
 	}
 	
+	public void removePoly(PolyNameNode previousPoly, PolyNameNode currentPoly) {
+		previousPoly.setDownPtr(currentPoly.getDownPtr());
+	}
+
 	public void addPoly(PolyNameNode poly) {
 		poly.setDownPtr(this.getDownPtr());
 		this.setDownPtr(poly);
 	}
 	
-	public void removePoly(PolyNameNode previousPoly, PolyNameNode currentPoly) {
-		previousPoly.setDownPtr(currentPoly.getDownPtr());
-	}
-
 	public String getAllPolyNames() {
 		String result = "";
 		PolyNameNode currentPoly = this.getDownPtr();
@@ -145,7 +161,7 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		}
 		return result;
 	}
-
+	
 	public void removeByName(String text) {
 		PolyNameNode previousPoly = this;
 		PolyNameNode currentPoly = this.getDownPtr();
@@ -161,7 +177,7 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	}
 
 	
-
+	//poly arithmetic
 	public PolyNameNode add(PolyNameNode poly) {
 		// TODO Auto-generated method stub
 		PolyNameNode result = new PolyNameNode();

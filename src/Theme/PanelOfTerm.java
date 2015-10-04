@@ -36,7 +36,6 @@ public class PanelOfTerm extends JPanel {
 		this.poly = poly;
 		this.control = control;
 		model = control.getModel();
-		
 		Term temp = poly.getFirstTerm();
 		primaryColor = temp.primaryColor;
 		secondaryColor = temp.secondaryColor;
@@ -74,20 +73,27 @@ public class PanelOfTerm extends JPanel {
 	}
 	
 	private void buildTerms(PolyNameNode poly) {
-		Term currentTerm = poly.getFirstTerm();
-		currentTerm.addPlusLabel(false);
-		while (currentTerm != poly.getRightPtr()) {
-			if (xCordinate == 550) {
-				xCordinate = 110;
-				yCordinate += 50;
-			} else {
-				xCordinate += 110;
+		if (poly.isHavingNoTerm()) {
+			JLabel zero = new JLabel("0");
+			zero.setForeground(primaryColor);
+			zero.setBounds(110, 110, 50, 50);
+			add(zero);
+		} else {
+			Term currentTerm = poly.getFirstTerm();
+			currentTerm.addPlusLabel(false);
+			while (currentTerm != poly.getRightPtr()) {
+				if (xCordinate == 550) {
+					xCordinate = 110;
+					yCordinate += 50;
+				} else {
+					xCordinate += 110;
+				}
+				currentTerm.setTFsEnable(false);
+				addTermIntoPanel(xCordinate, yCordinate + 10, currentTerm);
+				currentTerm = currentTerm.getPtr();
 			}
-			currentTerm.setTFsEnable(false);
-			addTermIntoPanel(xCordinate, yCordinate + 10, currentTerm);
-			currentTerm = currentTerm.getPtr();
+			setPreferredSize(new Dimension(830, getYCordinate()));
 		}
-		setPreferredSize(new Dimension(830, getYCordinate()));
 	}
 	
 	private void addTermIntoPanel (int xCordinate, int yCordinate, Term term) {
