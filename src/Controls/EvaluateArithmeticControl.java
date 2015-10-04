@@ -52,7 +52,6 @@ public class EvaluateArithmeticControl implements ActionListener {
 	
 	private void manipulateJComboBox(String name) {
 		if (isInJComboBox(view.cbPolynomials, name)) {
-			System.out.println("test");
 			view.cbPolynomials.setSelectedItem(name);
 		} else {
 			view.panelOfEvaluatingPoly.removeAll();
@@ -111,7 +110,9 @@ public class EvaluateArithmeticControl implements ActionListener {
 		double result = 0;
 		Term currentTerm = poly.getFirstTerm();
 		while (currentTerm != poly.getRightPtr()) {
+			System.out.println(currentTerm);
 			result += currentTerm.evaluate(x, y, z);
+			currentTerm = currentTerm.getPtr();
 		}
 		return result;
 	}
