@@ -221,7 +221,9 @@ public class Term extends JPanel implements TermInterface {
 
 	@Override
 	public String toString() {
-		return "Coefficient = " + getCoeff() + "\n" + "x-exponent = " + getXPower() + "\n" + "y-exponent = "
-				+ getYPower() + "\n" + "z-exponent = " + getZPower() + "\n";
+		return "Coefficient = " + getCoeff() + "\n" 
+				+ "x-exponent = " + getXPower() + "\n" 
+				+ "y-exponent = " + getYPower() + "\n" 
+				+ "z-exponent = " + getZPower() + "\n";
 	}
 }

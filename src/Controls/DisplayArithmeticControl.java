@@ -36,54 +36,48 @@ public class DisplayArithmeticControl implements ActionListener {
 		xCordinate = 0;
 		yCordinate = 0;
 		temporaryPoly = createTemporaryPoly("Temp");
+		createFirstTerm();
 	}
 
 	private PolyNameNode createTemporaryPoly(String name) {
 		PolyNameNode temporaryPoly = new PolyNameNode("Temp");
 		temporaryPoly.buildHeadTerm(lab1.primaryColor, lab1.secondaryColor);
 		currentTerm = temporaryPoly.getRightPtr();
-		createFirstTerm();
 		return temporaryPoly;
 	}
 
 	private void createFirstTerm() {
-		Term firstTerm = new Term(lab1.primaryColor, lab1.secondaryColor);
-		firstTerm.addPlusLabel(false);
-		addTermIntoPanel(0, 0, firstTerm);
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, firstTerm);
+		 Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
+		 term.setPtr(temporaryPoly.getFirstTerm());
+		 temporaryPoly.getRightPtr().setPtr(term);
+		 addTermInGUI(term);
+		 term.addPlusLabel(false);
 	}
-
 	
 	
 	// add a term button
 	private void addTerm() {
 		 Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
-		 currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, term);
+		 term.setPtr(temporaryPoly.getFirstTerm());
+		 temporaryPoly.getRightPtr().setPtr(term);
 		 addTermInGUI(term);
-	}
-
-	private Term addTermInTemporaryPolyAndSetPointer(Term currentTerm, Term nextTerm) {
-		currentTerm.setPtr(nextTerm);
-		currentTerm = currentTerm.getPtr();
-		return currentTerm;
+		 System.out.println(temporaryPoly);
 	}
 
 	private void addTermInGUI(Term term) {
 		// manipulate x and y coordinate
+		addTermIntoPanel(xCordinate, yCordinate, term);
 		if (xCordinate == 440) {
 			xCordinate = 0;
 			yCordinate += 50;
 		} else {
 			xCordinate += 110;
 		}
-		addTermIntoPanel(xCordinate, yCordinate, term);
-		// check for x and y coordinates bounds
-		// if (xCordinate == 440 && yCordinate == 50) {
-		// view.btnAddTerm.setEnabled(false);
-		// }
 		view.panelOfTerms.setPreferredSize(new Dimension(10, yCordinate + 50));
-		lab1.displayView.validate();
-		lab1.displayView.repaint();
+		try {
+			lab1.displayView.validate();
+			lab1.displayView.repaint();
+		} catch (NullPointerException e) {}
 	}
 
 	private void addTermIntoPanel(int xCordinate, int yCordinate, Term term) {
@@ -101,21 +95,19 @@ public class DisplayArithmeticControl implements ActionListener {
 			promptUserForAName();
 			return;
 		}
-		if (!(model.getHeadOfPolyLists().isInPolyLinkedList(polyName))) {
-			linkToHead();
-		} else {
+		if (model.getHeadOfPolyLists().isInPolyLinkedList(polyName)) {
 			promptUserForAnotherName();
 			return;
-		}
-		if (passCheckingTemporaryPolyTest()) {
+		}else if (passCheckingTemporaryPolyTest()) {
+			System.out.println(temporaryPoly);
 			cleanUpTemporaryPoly();
 			addNewPolyToModel();
 			updateGUI();
 		} else {
-			System.out.println("test");
 			promptUserForValidInput();
 			return;
 		}
+
 	}
 
 	private void promptUserForValidInput() {
@@ -124,10 +116,6 @@ public class DisplayArithmeticControl implements ActionListener {
 
 	private void promptUserForAName() {
 		view.lblShowingProcess.setText("Please provide a Polynomial Name");
-	}
-
-	private void linkToHead() {
-		currentTerm = addTermInTemporaryPolyAndSetPointer(currentTerm, temporaryPoly.getRightPtr());
 	}
 
 	private void promptUserForAnotherName() {

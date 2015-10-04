@@ -46,7 +46,6 @@ public class Lab1 extends JFrame {
 	 */
 	public Lab1() {
 		setInitialGUI();
-		setBounds(100, 100, 1026, 763);
 	}
 	
 	private void setInitialGUI() {
@@ -97,6 +96,7 @@ public class Lab1 extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 		setResizable(false);
+		setBounds(100, 100, 1026, 763);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
