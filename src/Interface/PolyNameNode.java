@@ -184,7 +184,7 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		result.buildHeadTerm(getFirstTerm().primaryColor, getFirstTerm().secondaryColor);
 		Term termP = this.getFirstTerm();
 		Term termQ = poly.getFirstTerm();
-		while (termP != this.getRightPtr() && termQ != poly.getRightPtr()) {
+		while (termP != this.getRightPtr() || termQ != poly.getRightPtr()) {
 			Term term = new Term(termP.primaryColor, termP.secondaryColor);
 			if (termP.isEqualPowersTo(termQ)) {
 				term.copy(termQ);

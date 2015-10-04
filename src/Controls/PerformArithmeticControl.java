@@ -96,6 +96,9 @@ public class PerformArithmeticControl implements ActionListener {
 		} else {
 			return;
 		}
+		try {
+			performArithmetic();
+		} catch (NullPointerException e) {}
 	}
 	
 	private void displaySecondOperand() {
@@ -108,6 +111,9 @@ public class PerformArithmeticControl implements ActionListener {
 		} else {
 			return;
 		}
+		try {
+			performArithmetic();
+		} catch (NullPointerException e) {}
 	}
 	
 	public PanelOfTerm  displayOperand(PolyNameNode operand, JPanel panel) {
@@ -135,9 +141,7 @@ public class PerformArithmeticControl implements ActionListener {
 		}
 		return currentPoly;
 	}
-	
-	
-	
+		
 	private void performArithmetic() {
 		resultPoly = new PolyNameNode();
 		switch (view.operator.getSelectedIndex()) {
@@ -151,8 +155,6 @@ public class PerformArithmeticControl implements ActionListener {
 		view.btnSave.setVisible(true);
 		view.lblShowingProcess.setText("Successful!!");
 	}
-	
-	
 	
 	
 	private void saveResult() {
