@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
 import Controls.DisplayArithmeticControl;
+import javax.swing.border.MatteBorder;
 
 public class PanelOfTerm extends JPanel {
 
@@ -32,6 +33,7 @@ public class PanelOfTerm extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelOfTerm(PolyNameNode poly, DisplayArithmeticControl control) {
+		setBorder(new MatteBorder(0, 0, 2, 0, primaryColor));
 
 		this.poly = poly;
 		this.control = control;
@@ -52,7 +54,7 @@ public class PanelOfTerm extends JPanel {
 		add(lblPolyName);
 		
 		JLabel label = new JLabel("=");
-		label.setBounds(97, 25, 46, 14);
+		label.setBounds(97, 25, 16, 14);
 		label.setForeground(primaryColor);
 		add(label);
 		
@@ -76,7 +78,7 @@ public class PanelOfTerm extends JPanel {
 		if (poly.isHavingNoTerm()) {
 			JLabel zero = new JLabel("0");
 			zero.setForeground(primaryColor);
-			zero.setBounds(130, 21, 89, 23);
+			zero.setBounds(130, 15, 110, 32);
 			add(zero);
 		} else {
 			Term currentTerm = poly.getFirstTerm();
@@ -89,11 +91,12 @@ public class PanelOfTerm extends JPanel {
 					xCordinate += 110;
 				}
 				currentTerm.setTFsEnable(false);
+//				currentTerm.changeTFsIntoLabels();
 				addTermIntoPanel(xCordinate, yCordinate + 10, currentTerm);
 				currentTerm = currentTerm.getPtr();
 			}
 		}
-		setPreferredSize(new Dimension(830, getYCordinate()));
+		setPreferredSize(new Dimension(830, 50));
 	}
 	
 	private void addTermIntoPanel (int xCordinate, int yCordinate, Term term) {
@@ -107,7 +110,7 @@ public class PanelOfTerm extends JPanel {
 	}
 	
 	public int getYCordinate() {
-		return yCordinate + 50;
+		return yCordinate + 53;
 	}
 	
 	public void replaceLblNameAsTextField() {

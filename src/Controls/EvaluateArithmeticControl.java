@@ -110,7 +110,6 @@ public class EvaluateArithmeticControl implements ActionListener {
 		double result = 0;
 		Term currentTerm = poly.getFirstTerm();
 		while (currentTerm != poly.getRightPtr()) {
-			System.out.println(currentTerm);
 			result += currentTerm.evaluate(x, y, z);
 			currentTerm = currentTerm.getPtr();
 		}

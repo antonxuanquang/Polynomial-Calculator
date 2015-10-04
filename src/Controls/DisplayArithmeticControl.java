@@ -154,7 +154,7 @@ public class DisplayArithmeticControl implements ActionListener {
 	private void cleanUpTemporaryPoly() {
 		// exclude zeroes coefficient
 		temporaryPoly = arrangeInDescendingOrder();
-		loookForLikeTermsAndAdds();
+		temporaryPoly.loookForLikeTermsAndAdds();
 	}
 
 	private PolyNameNode arrangeInDescendingOrder() {
@@ -171,20 +171,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		return resultPoly;
 	}
 
-	private void loookForLikeTermsAndAdds() {
-		Term headTerm = temporaryPoly.getRightPtr();
-		Term currentTerm = headTerm.getPtr();
-		while (currentTerm != headTerm) {
-			Term nextTerm = currentTerm.getPtr();
-			if (currentTerm.isEqualPowersTo(nextTerm)) {
-				currentTerm = currentTerm.addLikeTerm(nextTerm);
-				temporaryPoly.removeTerm(currentTerm, nextTerm);
-				nextTerm = currentTerm.getPtr();
-			} else {
-				currentTerm = currentTerm.getPtr();
-			}
-		}
-	}
+	
 
 	private void addNewPolyToModel() {
 		temporaryPoly.setPolyName(view.tfPolyName.getText());

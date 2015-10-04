@@ -78,6 +78,21 @@ public class PolyNameNode implements PolyNameNodeInterface{
 		return result;
 	}
 	
+	public void loookForLikeTermsAndAdds() {
+		Term headTerm = this.getRightPtr();
+		Term currentTerm = headTerm.getPtr();
+		while (currentTerm != headTerm) {
+			Term nextTerm = currentTerm.getPtr();
+			if (currentTerm.isEqualPowersTo(nextTerm)) {
+				currentTerm = currentTerm.addLikeTerm(nextTerm);
+				this.removeTerm(currentTerm, nextTerm);
+				nextTerm = currentTerm.getPtr();
+			} else {
+				currentTerm = currentTerm.getPtr();
+			}
+		}
+	}
+	
 	public void removeTerm (Term previousTerm, Term currentTerm) {
 		previousTerm.setPtr(currentTerm.getPtr());
 	}
@@ -211,12 +226,11 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	}
 	
 	public PolyNameNode subtract(PolyNameNode poly) {
-		// TODO Auto-generated method stub
 		PolyNameNode result = new PolyNameNode();
 		result.buildHeadTerm(getFirstTerm().primaryColor, getFirstTerm().secondaryColor);
 		Term termP = this.getFirstTerm();
 		Term termQ = poly.getFirstTerm();
-		while (termP != this.getRightPtr() && termQ != poly.getRightPtr()) {
+		while (termP != this.getRightPtr() || termQ != poly.getRightPtr()) {
 			Term term = new Term(termP.primaryColor, termP.secondaryColor);
 			if (termP.isEqualPowersTo(termQ)) {
 				term.copy(termQ);
@@ -230,6 +244,7 @@ public class PolyNameNode implements PolyNameNodeInterface{
 			} else {
 				if (termP.isHavingLessPower(termQ)) {
 					term.copy(termQ);
+					term.setCoeff(term.getCoeff() * -1);
 					result.addTerm(term);
 					termQ = termQ.getPtr();
 				} else {
@@ -245,7 +260,22 @@ public class PolyNameNode implements PolyNameNodeInterface{
 	public PolyNameNode multiply(PolyNameNode poly) {
 		PolyNameNode result = new PolyNameNode();
 		result.buildHeadTerm(getFirstTerm().primaryColor, getFirstTerm().secondaryColor);
-		
+		Term termP = this.getFirstTerm();
+		Term termQ = poly.getFirstTerm();
+		while (termP != this.getRightPtr()) {
+			while (termQ != poly.getRightPtr()) {
+				Term term = new Term(termP.primaryColor, termP.secondaryColor);
+				term.setCoeff(termP.getCoeff() * termQ.getCoeff());
+				term.setXPower(termP.getXPower() + termQ.getXPower());
+				term.setYPower(termP.getYPower() + termQ.getYPower());
+				term.setZPower(termP.getZPower() + termQ.getZPower());
+				result.addTerm(term);
+				termQ = termQ.getPtr();
+			}
+			termQ = poly.getFirstTerm();
+			termP = termP.getPtr();
+		}
+		result.loookForLikeTermsAndAdds();
 		return result;
 	}
 
