@@ -1,10 +1,11 @@
 package Interface;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import Lab1.Lab1;
 
-public class PolyNameNode implements PolyNameNodeInterface{
+public class PolyNameNode implements PolyNameNodeInterface, Serializable{
 	
 	private String name;
 	private PolyNameNode downPointer;

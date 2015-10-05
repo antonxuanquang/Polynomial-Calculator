@@ -15,4 +15,8 @@ public class Lab1Model {
 	public PolyNameNode getHeadOfPolyLists() {
 		return polyLinkedList;
 	}
+	
+	public void adjustPointerTo(PolyNameNode polyLink) {
+		polyLinkedList = polyLink;
+	}
 }

@@ -6,6 +6,7 @@ package Interface;
  */
 public interface PolyNameNodeInterface {
 	// Method signatures
+
 	public String getPolyName();
 
 	public void setPolyName(String s);

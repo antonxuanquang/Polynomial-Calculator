@@ -5,6 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import Interface.PolyNameNode;
 import Interface.Term;
@@ -61,7 +68,6 @@ public class DisplayArithmeticControl implements ActionListener {
 		 term.setPtr(temporaryPoly.getFirstTerm());
 		 temporaryPoly.getRightPtr().setPtr(term);
 		 addTermInGUI(term);
-		 System.out.println(temporaryPoly);
 	}
 
 	private void addTermInGUI(Term term) {
@@ -99,7 +105,6 @@ public class DisplayArithmeticControl implements ActionListener {
 			promptUserForAnotherName();
 			return;
 		}else if (passCheckingTemporaryPolyTest()) {
-			System.out.println(temporaryPoly);
 			cleanUpTemporaryPoly();
 			addNewPolyToModel();
 			updateGUI();
@@ -229,7 +234,66 @@ public class DisplayArithmeticControl implements ActionListener {
 		}
 		return result;
 	}
+	
+	//save Polynomials to DB
+	private void savePolyToDB() {
+		try{
+			FileOutputStream saveFile=new FileOutputStream("polynomials.sav");
+			ObjectOutputStream save = new ObjectOutputStream(saveFile);
 
+			PolyNameNode poly = model.getHeadOfPolyLists().getDownPtr();
+			while (poly != model.getHeadOfPolyLists()) {
+				save.writeObject(poly);
+				poly = poly.getDownPtr();
+			}
+			save.close();
+		} catch (IOException exc) {
+			exc.printStackTrace();
+		}
+		view.lblSaveAndLoad.setText("Successfully SAVE Polynomials to Database!!!!");
+	}
+
+	//load Polynomials from DB
+	private void loadPoly() {
+		try{
+			FileInputStream saveFile = new FileInputStream("polynomials.sav");
+			ObjectInputStream save = new ObjectInputStream(saveFile);
+
+			PolyNameNode polyLinkFromDB = getPolyFromDB(save);
+			model.adjustPointerTo(polyLinkFromDB);
+			
+			updatePanelOfPolies(model.getHeadOfPolyLists());
+			
+			save.close();
+		} catch (IOException exc) {
+			exc.printStackTrace(); 
+		}
+		view.lblSaveAndLoad.setText("Successfully LOAD Polynomials from Database!!!!");
+	}
+	
+	private PolyNameNode getPolyFromDB(ObjectInputStream save) {
+		PolyNameNode poly = new PolyNameNode("Head");
+		poly.setDownPtr(poly);
+		poly.setRightPtr(null);
+		try {
+			PolyNameNode newPoly = (PolyNameNode) save.readObject();
+			while (newPoly != null) {
+				poly.addPoly(newPoly);
+				try {
+					newPoly = (PolyNameNode) save.readObject();
+				} catch (EOFException e) {
+					return poly;
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return poly;
+	}
+
+	
 	
 	
 	// Events and set up Listeners
@@ -245,6 +309,8 @@ public class DisplayArithmeticControl implements ActionListener {
 		Object event = ae.getSource();
 		if (event.equals(view.btnAddTerm)) addTerm();
 		else if (event.equals(view.btnAddPoly)) addPoly();
+		else if (event.equals(view.btnLoad)) loadPoly();
+		else if (event.equals(view.btnSaveToDb)) savePolyToDB();
 	}
 
 	public void setUpActionListeners() {

@@ -46,7 +46,7 @@ public class DisplayArithmeticView extends JPanel{
 	public QTextField tfPolyName, tfSearch;
 	public QButton btnAddTerm, btnAddPoly, btnLoad, btnSaveToDb;
 	public JPanel panelOfTerms, panelOfPoly;
-	public JLabel lblShowingProcess;
+	public JLabel lblShowingProcess, lblSaveAndLoad;
 	private JScrollPane scrollPane;
 
 	/**
@@ -130,12 +130,18 @@ public class DisplayArithmeticView extends JPanel{
 		displayScrollPane.setViewportView(panelOfPoly);
 		panelOfPoly.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-//		JScrollBar sBar1 = displayScrollPane.getVerticalScrollBar();
-		
 		JLabel label = new JLabel("=");
 		label.setBounds(170, 43, 46, 14);
 		label.setForeground(lab1.primaryColor);
 		add(label);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(47, 345, 508, 27);
+		add(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		lblSaveAndLoad = new JLabel("");
+		lblSaveAndLoad.setForeground(lab1.primaryColor);
+		panel.add(lblSaveAndLoad);		
 	}
 }
