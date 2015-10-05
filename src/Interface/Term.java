@@ -46,7 +46,7 @@ public class Term extends JPanel implements TermInterface {
 		coeffTF.setColumns(10);
 
 		JLabel lblX = new JLabel("x");
-		lblX.setBounds(40, 13, 22, 17);
+		lblX.setBounds(40, 13, 14, 17);
 		lblX.setForeground(primaryColor);
 		add(lblX);
 
@@ -56,7 +56,7 @@ public class Term extends JPanel implements TermInterface {
 		xTF.setColumns(10);
 
 		JLabel lblY = new JLabel("y");
-		lblY.setBounds(63, 14, 22, 17);
+		lblY.setBounds(63, 14, 14, 17);
 		lblY.setForeground(primaryColor);
 		add(lblY);
 
@@ -66,7 +66,7 @@ public class Term extends JPanel implements TermInterface {
 		add(yTF);
 
 		JLabel lblZ = new JLabel("z");
-		lblZ.setBounds(86, 14, 22, 17);
+		lblZ.setBounds(86, 14, 14, 17);
 		lblZ.setForeground(primaryColor);
 		add(lblZ);
 
@@ -87,24 +87,30 @@ public class Term extends JPanel implements TermInterface {
 		remove(yTF);
 		remove(zTF);
 		
-		Label lblCoeff = new Label("" + coeff);
+		String label = "";
+		if (coeff < 0) {
+			label = "(" + coeff + ")";
+		} else {
+			label = "" + coeff;
+		}
+		Label lblCoeff = new Label(label);
 		lblCoeff.setForeground(primaryColor);
-		lblCoeff.setBounds(15, 10, 20, 23);
+		lblCoeff.setBounds(12, 10, 25, 23);
 		add(lblCoeff);
 
 		Label lblXPower = new Label("" + x);
 		lblXPower.setForeground(primaryColor);
-		lblXPower.setBounds(45, -3, 20, 23);
+		lblXPower.setBounds(46, -3, 25, 23);
 		add(lblXPower);
 
 		Label lblYPower = new Label("" + y);
 		lblYPower.setForeground(primaryColor);
-		lblYPower.setBounds(70, -3, 20, 23);
+		lblYPower.setBounds(71, -3, 25, 23);
 		add(lblYPower);
 
 		Label lblZPower = new Label("" + z);
 		lblZPower.setForeground(primaryColor);
-		lblZPower.setBounds(95, -3, 20, 23);
+		lblZPower.setBounds(96, -3, 25, 23);
 		add(lblZPower);
 	}
 

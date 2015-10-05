@@ -197,7 +197,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		while (currentPoly != poly) {
 			PanelOfTerm panelOfTerm = new PanelOfTerm(currentPoly, this);
 			view.panelOfPoly.add(panelOfTerm);
-			yCordinate += panelOfTerm.getYCordinate();
+			yCordinate += panelOfTerm.getYCordinate() + 2;
 			currentPoly = currentPoly.getDownPtr();
 		}
 		view.panelOfPoly.setPreferredSize(new Dimension(830, yCordinate + 50));
@@ -268,6 +268,10 @@ public class DisplayArithmeticControl implements ActionListener {
 		} catch (IOException exc) {
 			exc.printStackTrace(); 
 		}
+		try {
+			lab1.performView.control.updateJComboBox(model.getHeadOfPolyLists());
+			lab1.evaluateView.control.updateJComboBox(model.getHeadOfPolyLists());
+		} catch (NullPointerException e) {}
 		view.lblSaveAndLoad.setText("Successfully LOAD Polynomials from Database!!!!");
 	}
 	

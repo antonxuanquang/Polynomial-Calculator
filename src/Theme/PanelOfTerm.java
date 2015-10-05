@@ -110,7 +110,7 @@ public class PanelOfTerm extends JPanel {
 	}
 	
 	public int getYCordinate() {
-		return yCordinate + 55;
+		return yCordinate + 50;
 	}
 	
 	public void replaceLblNameAsTextField() {
