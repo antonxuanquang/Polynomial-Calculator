@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 
 import Views.DisplayArithmeticView;
 import Views.EvaluateArithmeticView;
+import Views.ExitView;
 import Views.PerformArithmeticView;
 import Views.ViewController;
 
@@ -83,6 +84,15 @@ public class Lab1 extends JFrame {
 		evaluateView.setBounds(0, 0, 857, 365);
 		panel_1.add(evaluateView);
 		evaluateView.setBorder(new LineBorder(primaryColor, 4, true));
+		validate();
+		repaint();
+	}
+	
+	public void setUpExitView() {
+		contentPane.removeAll();
+		ExitView exit = new ExitView(this);
+		exit.setBounds(0, 0, 857, 500);
+		contentPane.add(exit);
 		validate();
 		repaint();
 	}

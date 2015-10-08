@@ -30,7 +30,7 @@ public class ViewController extends JPanel {
 				btnAvaluateArithmetic.setEnabled(true);
 			}
 		});
-		btnPerformArithmetic.setBounds(30, 104, 154, 50);
+		btnPerformArithmetic.setBounds(30, 69, 154, 50);
 		btnPerformArithmetic.setEnabled(false);
 		add(btnPerformArithmetic);
 		
@@ -42,7 +42,17 @@ public class ViewController extends JPanel {
 				btnAvaluateArithmetic.setEnabled(false);
 			}
 		});
-		btnAvaluateArithmetic.setBounds(30, 183, 154, 50);
+		btnAvaluateArithmetic.setBounds(30, 148, 154, 50);
 		add(btnAvaluateArithmetic);
+		
+		QButton btnExit = new QButton("Avaluate Arithmetic", lab1.primaryColor, lab1.secondaryColor);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lab1.setUpExitView();
+			}
+		});
+		btnExit.setText("Exit");
+		btnExit.setBounds(30, 229, 154, 50);
+		add(btnExit);
 	}
 }
