@@ -41,6 +41,7 @@ public class Term extends JPanel implements TermInterface {
 		setLayout(null);
 
 		coeffTF = new QTextField(primaryColor, secondaryColor);
+		coeffTF.setTabSize(0);
 		coeffTF.setBounds(10, 11, 28, 20);
 		add(coeffTF);
 		coeffTF.setColumns(10);
@@ -51,6 +52,7 @@ public class Term extends JPanel implements TermInterface {
 		add(lblX);
 
 		xTF = new QTextField(primaryColor, secondaryColor);
+		xTF.setTabSize(0);
 		xTF.setBounds(48, 0, 14, 20);
 		add(xTF);
 		xTF.setColumns(10);
@@ -61,6 +63,7 @@ public class Term extends JPanel implements TermInterface {
 		add(lblY);
 
 		yTF = new QTextField(primaryColor, secondaryColor);
+		yTF.setTabSize(0);
 		yTF.setBounds(71, 1, 14, 20);
 		yTF.setColumns(10);
 		add(yTF);
@@ -71,6 +74,7 @@ public class Term extends JPanel implements TermInterface {
 		add(lblZ);
 
 		zTF = new QTextField(primaryColor, secondaryColor);
+		zTF.setTabSize(0);
 		zTF.setBounds(94, 1, 14, 20);
 		zTF.setColumns(10);
 		add(zTF);
@@ -119,7 +123,7 @@ public class Term extends JPanel implements TermInterface {
 			setCoeff(coeff);
 			return coeff;
 		} else {
-			coeff = Integer.parseInt(coeffTF.getText());
+			coeff = Integer.parseInt(coeffTF.getText().trim());
 			return coeff;
 		}
 	}
@@ -135,7 +139,7 @@ public class Term extends JPanel implements TermInterface {
 			setXPower(x);
 			return x;
 		} else {
-			x = Integer.parseInt(xTF.getText());
+			x = Integer.parseInt(xTF.getText().trim());
 			return x;
 		}
 	}
@@ -151,7 +155,7 @@ public class Term extends JPanel implements TermInterface {
 			setYPower(y);
 			return y;
 		} else {
-			y = Integer.parseInt(yTF.getText());
+			y = Integer.parseInt(yTF.getText().trim());
 			return y;
 		}
 	}
@@ -167,7 +171,7 @@ public class Term extends JPanel implements TermInterface {
 			setZPower(z);
 			return z;
 		} else {
-			z = Integer.parseInt(zTF.getText());
+			z = Integer.parseInt(zTF.getText().trim());
 			return z;
 		}
 	}

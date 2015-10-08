@@ -90,16 +90,19 @@ public class EvaluateArithmeticView extends JPanel {
 		add(label_3);
 		
 		xTF = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		xTF.setTabSize(0);
 		xTF.setBounds(216, 75, 41, 20);
 		add(xTF);
 		xTF.setColumns(10);
 		
 		yTF = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		yTF.setTabSize(0);
 		yTF.setColumns(10);
 		yTF.setBounds(216, 100, 41, 20);
 		add(yTF);
 		
 		zTF = new QTextField(lab1.primaryColor, lab1.secondaryColor);
+		zTF.setTabSize(0);
 		zTF.setColumns(10);
 		zTF.setBounds(216, 125, 41, 20);
 		add(zTF);
