@@ -236,13 +236,26 @@ public class DisplayArithmeticControl implements ActionListener {
 
 	// save Polynomials to DB
 	private void savePolyToDB() {
+		if (model.getHeadOfPolyLists().isEmpty()) {
+			view.lblSaveAndLoad.setText("There is no polynomial to save");
+			return;
+		}
 		try {
-			File file = getFile();
-			if (file == null) {
+			JFileChooser chooser = new JFileChooser("C:\\Users\\Quang Nguyen\\Desktop");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(".sav file", "sav");
+			chooser.setFileFilter(filter);
+			chooser.setDialogTitle("Please choose a file to save");
+			
+			int returnVal = chooser.showSaveDialog(view);
+			
+			File file;
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				file = chooser.getSelectedFile();
+			} else {
 				view.lblSaveAndLoad.setText("FAIL to save Polynomials to Database");
 				return;
 			}
-
+			
 			String fileName = file.getPath() + ".sav";
 
 			FileOutputStream saveFile = new FileOutputStream(fileName);
@@ -266,7 +279,6 @@ public class DisplayArithmeticControl implements ActionListener {
 
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(view);
-		String fileName = "";
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			return chooser.getSelectedFile();
 		}
@@ -276,9 +288,18 @@ public class DisplayArithmeticControl implements ActionListener {
 	// load Polynomials from DB
 	private void loadPoly() {
 		try {
-			File file = getFile();
-			if (file == null) {
-				view.lblSaveAndLoad.setText("FAIL to load Polynomials from Database");
+			JFileChooser chooser = new JFileChooser("C:\\Users\\Quang Nguyen\\Desktop");
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(".sav file", "sav");
+			chooser.setFileFilter(filter);
+			chooser.setDialogTitle("Please choose a file to load");
+			
+			int returnVal = chooser.showOpenDialog(view);
+			
+			File file;
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				file = chooser.getSelectedFile();
+			} else {
+				view.lblSaveAndLoad.setText("FAIL to save Polynomials to Database");
 				return;
 			}
 
