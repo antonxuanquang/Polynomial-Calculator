@@ -6,12 +6,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Interface.PolyNameNode;
 import Interface.Term;
@@ -54,20 +58,19 @@ public class DisplayArithmeticControl implements ActionListener {
 	}
 
 	private void createFirstTerm() {
-		 Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
-		 term.setPtr(temporaryPoly.getFirstTerm());
-		 temporaryPoly.getRightPtr().setPtr(term);
-		 addTermInGUI(term);
-		 term.addPlusLabel(false);
+		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
+		term.setPtr(temporaryPoly.getFirstTerm());
+		temporaryPoly.getRightPtr().setPtr(term);
+		addTermInGUI(term);
+		term.addPlusLabel(false);
 	}
-	
-	
+
 	// add a term button
 	private void addTerm() {
-		 Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
-		 term.setPtr(temporaryPoly.getFirstTerm());
-		 temporaryPoly.getRightPtr().setPtr(term);
-		 addTermInGUI(term);
+		Term term = new Term(lab1.primaryColor, lab1.secondaryColor);
+		term.setPtr(temporaryPoly.getFirstTerm());
+		temporaryPoly.getRightPtr().setPtr(term);
+		addTermInGUI(term);
 	}
 
 	private void addTermInGUI(Term term) {
@@ -83,7 +86,8 @@ public class DisplayArithmeticControl implements ActionListener {
 		try {
 			lab1.displayView.validate();
 			lab1.displayView.repaint();
-		} catch (NullPointerException e) {}
+		} catch (NullPointerException e) {
+		}
 	}
 
 	private void addTermIntoPanel(int xCordinate, int yCordinate, Term term) {
@@ -92,8 +96,6 @@ public class DisplayArithmeticControl implements ActionListener {
 		term.setLayout(null);
 	}
 
-	
-	
 	// add a new poly button
 	private void addPoly() {
 		String polyName = view.tfPolyName.getText();
@@ -104,7 +106,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		if (model.getHeadOfPolyLists().isInPolyLinkedList(polyName)) {
 			promptUserForAnotherName();
 			return;
-		}else if (passCheckingTemporaryPolyTest()) {
+		} else if (passCheckingTemporaryPolyTest()) {
 			cleanUpTemporaryPoly();
 			addNewPolyToModel();
 			updateGUI();
@@ -164,8 +166,6 @@ public class DisplayArithmeticControl implements ActionListener {
 		return resultPoly;
 	}
 
-	
-
 	private void addNewPolyToModel() {
 		temporaryPoly.setPolyName(view.tfPolyName.getText());
 		PolyNameNode newPoly = new PolyNameNode();
@@ -180,7 +180,8 @@ public class DisplayArithmeticControl implements ActionListener {
 		lab1.performView.control.updateJComboBox(model.getHeadOfPolyLists());
 		try {
 			lab1.evaluateView.control.updateJComboBox(model.getHeadOfPolyLists());
-		} catch (NullPointerException e) {}
+		} catch (NullPointerException e) {
+		}
 	}
 
 	private void updatePanelOfTerms() {
@@ -205,9 +206,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		lab1.displayView.validate();
 	}
 
-	
-	
-	//serach for polynomials
+	// serach for polynomials
 	private void searchPoly(String text) {
 		if (text.equals("")) {
 			updatePanelOfPolies(model.getHeadOfPolyLists());
@@ -221,7 +220,7 @@ public class DisplayArithmeticControl implements ActionListener {
 		PolyNameNode result = new PolyNameNode();
 		result = new PolyNameNode("Head");
 		result.setDownPtr(result);
-		result.setRightPtr(null);		
+		result.setRightPtr(null);
 		PolyNameNode currentPoly = model.getHeadOfPolyLists().getDownPtr();
 		while (currentPoly != model.getHeadOfPolyLists()) {
 			if (currentPoly.getPolyName().contains(text)) {
@@ -234,11 +233,19 @@ public class DisplayArithmeticControl implements ActionListener {
 		}
 		return result;
 	}
-	
-	//save Polynomials to DB
+
+	// save Polynomials to DB
 	private void savePolyToDB() {
-		try{
-			FileOutputStream saveFile=new FileOutputStream("polynomials.sav");
+		try {
+			File file = getFile();
+			if (file == null) {
+				view.lblSaveAndLoad.setText("FAIL to save Polynomials to Database");
+				return;
+			}
+
+			String fileName = file.getPath() + ".sav";
+
+			FileOutputStream saveFile = new FileOutputStream(fileName);
 			ObjectOutputStream save = new ObjectOutputStream(saveFile);
 
 			PolyNameNode poly = model.getHeadOfPolyLists().getDownPtr();
@@ -253,28 +260,50 @@ public class DisplayArithmeticControl implements ActionListener {
 		view.lblSaveAndLoad.setText("Successfully SAVE Polynomials to Database!!!!");
 	}
 
-	//load Polynomials from DB
+	private File getFile() {
+		JFileChooser chooser = new JFileChooser("C:\\Users\\Quang Nguyen\\Desktop");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(".sav file", "sav");
+
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(view);
+		String fileName = "";
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			return chooser.getSelectedFile();
+		}
+		return null;
+	}
+
+	// load Polynomials from DB
 	private void loadPoly() {
-		try{
-			FileInputStream saveFile = new FileInputStream("polynomials.sav");
+		try {
+			File file = getFile();
+			if (file == null) {
+				view.lblSaveAndLoad.setText("FAIL to load Polynomials from Database");
+				return;
+			}
+
+			String fileName = file.getPath();
+
+			FileInputStream saveFile = new FileInputStream(fileName);
 			ObjectInputStream save = new ObjectInputStream(saveFile);
 
 			PolyNameNode polyLinkFromDB = getPolyFromDB(save);
 			model.adjustPointerTo(polyLinkFromDB);
-			
+
 			updatePanelOfPolies(model.getHeadOfPolyLists());
-			
+
 			save.close();
 		} catch (IOException exc) {
-			exc.printStackTrace(); 
+			exc.printStackTrace();
 		}
 		try {
 			lab1.performView.control.updateJComboBox(model.getHeadOfPolyLists());
 			lab1.evaluateView.control.updateJComboBox(model.getHeadOfPolyLists());
-		} catch (NullPointerException e) {}
+		} catch (NullPointerException e) {
+		}
 		view.lblSaveAndLoad.setText("Successfully LOAD Polynomials from Database!!!!");
 	}
-	
+
 	private PolyNameNode getPolyFromDB(ObjectInputStream save) {
 		PolyNameNode poly = new PolyNameNode("Head");
 		poly.setDownPtr(poly);
@@ -283,38 +312,35 @@ public class DisplayArithmeticControl implements ActionListener {
 			PolyNameNode newPoly = (PolyNameNode) save.readObject();
 			while (newPoly != null) {
 				poly.addPoly(newPoly);
-				try {
-					newPoly = (PolyNameNode) save.readObject();
-				} catch (EOFException e) {
-					return poly;
-				}
+				newPoly = (PolyNameNode) save.readObject();
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			return poly;
 		}
 		return poly;
 	}
 
-	
-	
-	
 	// Events and set up Listeners
 	public DisplayArithmeticView getView() {
 		return view;
 	}
-	
+
 	public Lab1Model getModel() {
 		return model;
 	}
 
 	public void actionPerformed(ActionEvent ae) {
 		Object event = ae.getSource();
-		if (event.equals(view.btnAddTerm)) addTerm();
-		else if (event.equals(view.btnAddPoly)) addPoly();
-		else if (event.equals(view.btnLoad)) loadPoly();
-		else if (event.equals(view.btnSaveToDb)) savePolyToDB();
+		if (event.equals(view.btnAddTerm))
+			addTerm();
+		else if (event.equals(view.btnAddPoly))
+			addPoly();
+		else if (event.equals(view.btnLoad))
+			loadPoly();
+		else if (event.equals(view.btnSaveToDb))
+			savePolyToDB();
 	}
 
 	public void setUpActionListeners() {
