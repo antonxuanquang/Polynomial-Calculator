@@ -127,6 +127,7 @@ public class Term extends JPanel implements TermInterface {
 	public void setCoeff(int c) {
 		coeff = c;
 		coeffTF.setText("" + c);
+		coeffTF.setToolTipText("" + c);
 	}
 
 	public int getXPower() {
@@ -142,6 +143,7 @@ public class Term extends JPanel implements TermInterface {
 	public void setXPower(int ix) {
 		x = ix;
 		xTF.setText("" + ix);
+		xTF.setToolTipText("" + ix);
 	}
 
 	public int getYPower() {
@@ -157,6 +159,7 @@ public class Term extends JPanel implements TermInterface {
 	public void setYPower(int iy) {
 		y = iy;
 		yTF.setText("" + iy);
+		yTF.setToolTipText("" + iy);
 	}
 
 	public int getZPower() {
@@ -172,6 +175,7 @@ public class Term extends JPanel implements TermInterface {
 	public void setZPower(int iz) {
 		z = iz;
 		zTF.setText("" + iz);
+		zTF.setToolTipText("" + iz);
 	}
 
 	public void setCoeffAndXYZ(int coeff, int x, int y, int z) {
